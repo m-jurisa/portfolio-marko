@@ -28,11 +28,11 @@ const Timeline = () => {
 
     return (
         <section className="sub-section-alternative py-12 bg-gray-100" id="timeline">
-            <div className="container mx-auto p-6 sm:mt-96 md:mt-16 ">
+            <div className="container mx-auto p-6 sm:mt-96 md:mt-16 w-5/6">
                 {/* Timeline Container */}
-                <div className="relative flex flex-col md:grid md:grid-cols-9 items-center">
+                <div className="relative flex flex-col md:grid md:grid-cols-9 items-center text-center md:text-left ">
                     {/* Line running through the timeline */}
-                    <div className="absolute md:block border border-gray-300 w-0.5 h-full left-1/2 transform -translate-x-1/2 hidden"></div>
+                    <div className="absolute md:block border border-gray-300 w-0.5 h-full  left-1/2 transform -translate-x-1/2 hidden"></div>
 
                     {/* Timeline Items */}
                     {/* Left side */}
@@ -339,7 +339,7 @@ const Timeline = () => {
 
                     {/* Left side */}
                     <motion.div
-                        className="timeline-item md:col-start-1 md:col-span-4 mb-8 flex justify-end order-22 md:order-22 size-2/3 md:size-full"
+                        className="timeline-item md:col-start-1 md:col-span-4 mb-8 flex justify-end order-22 size-2/3 md:size-full"
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
@@ -407,7 +407,7 @@ const Timeline = () => {
 
                     {/* Right side */}
                     <motion.div
-                        className="timeline-item md:col-start-6 md:col-span-4 mb-8 order-27 md:order-26 md:size-full"
+                        className="timeline-item md:col-start-6 md:col-span-4 mb-8 order-27 md:order-27 size-2/3 md:size-full"
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
@@ -416,7 +416,7 @@ const Timeline = () => {
                         <img src={iconWebDev} alt="Web Development" className="rounded-2xl md:w-3/5 " />
                     </motion.div>
                     <motion.div
-                        className="md:col-start-5 md:col-span-1 mb-8 flex flex-col justify-center order-28 items-center "
+                        className="md:col-start-5 md:col-span-1 mb-8 flex flex-col justify-center order-28 md:order-26 items-center "
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
