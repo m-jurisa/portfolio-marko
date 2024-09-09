@@ -14,18 +14,15 @@ function AboutMe() {
                     observer.disconnect(); // Stop observing once visible
                 }
             },
-            { threshold: 0.3 }, // Trigger when 10% of the section is visible
+            { threshold: 0.3 }, // Trigger when 30% of the section is visible
         );
 
         if (sectionRef.current) {
             observer.observe(sectionRef.current);
         }
 
-        return () => {
-            if (sectionRef.current) {
-                observer.disconnect();
-            }
-        };
+        return () => observer.disconnect();
+
     }, []);
 
     return (

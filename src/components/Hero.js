@@ -14,17 +14,17 @@ function Hero() {
                         </a>
                     </li>
                     <li>
-                        <a href="#projects" className="hover:text-secondary lg:ml-4">
+                        <a href="#projects" className="hover:text-secondary sm:ml-4">
                             Projekte
                         </a>
                     </li>
                     <li>
-                        <a href="#skills" className="hover:text-secondary lg:ml-4">
+                        <a href="#skills" className="hover:text-secondary sm:ml-4">
                             Skills
                         </a>
                     </li>
                     <li>
-                        <a href="mailto:marko.jurisa@proton.me" className="hover:text-secondary lg:ml-4 lg:mr-8">
+                        <a href="mailto:marko.jurisa@proton.me" className="hover:text-secondary sm:ml-4 sm:mr-8">
                             Kontakt
                         </a>
                     </li>
@@ -39,20 +39,12 @@ function Hero() {
                         Anwendungsentwicklung
                     </p>
                     <div className="button mt-6">
-                        <button
-                            href="#about-me"
-                            className="btn-grad text-white py-2 px-4 rounded  transition"
-                        >
+                        <a href="#about-me" className="btn-grad text-white py-2 px-4 rounded transition">
                             Über mich
-                        </button>
+                        </a>
                     </div>
                 </div>
-                <div>
-                    <div className="quote-container max-w-screen-md text-xs flex rounded-lg ml-6 mt-56 text-left">
-                        <p className="quote" id="quote"></p>
-                        <p className="author" id="author"></p>
-                    </div>
-                </div>
+             
             </div>
         </section>
     );

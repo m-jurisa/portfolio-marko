@@ -4,7 +4,6 @@ import csharpLogo from '../images/cards/card-img-c-sharp.webp';
 import webDevLogo from '../images/cards/card-img-webdev-pc.webp';
 import javaScriptLogo from '../images/cards/card-img-javascript.webp';
 
-
 function Projects() {
     const container = {
         hidden: { opacity: 0 },
@@ -56,7 +55,7 @@ function Projects() {
                     <div className="card-body items-center text-center">
                         <h2 className="card-title text-primary">C Sharp</h2>
                         <p className="text-secondary-content">
-                            Dies ist ein Abschnitt für meine Webentwicklungsprojekte.
+                           Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur incidunt atque autem ullam tenetur nostrum perferendis maxime, saepe minima earum.
                         </p>
                         <div className="card-actions">
                             <button className="btn btn-grad">Mehr Info</button>
@@ -72,7 +71,7 @@ function Projects() {
                     <div className="card-body items-center text-center">
                         <h2 className="card-title text-primary">Web Dev</h2>
                         <p className="text-secondary-content">
-                            Dies ist ein Abschnitt für meine Webentwicklungsprojekte.
+                          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Debitis facere esse eligendi sed, laboriosam nemo animi dolor et possimus repellendus sapiente voluptatem.
                         </p>
                         <div className="card-actions">
                             <button className="btn btn-grad ">Mehr Info</button>
@@ -88,7 +87,7 @@ function Projects() {
                     <div className="card-body items-center text-center">
                         <h2 className="card-title text-primary">JavaScript</h2>
                         <p className="text-secondary-content">
-                            Dies ist ein Abschnitt für meine Webentwicklungsprojekte.
+                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. At eos quasi inventore vero consequuntur quod blanditiis reprehenderit voluptatibus recusandae eveniet?
                         </p>
                         <div className="card-actions">
                             <button className="btn btn-grad ">Mehr Info</button>
