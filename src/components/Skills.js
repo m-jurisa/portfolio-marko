@@ -27,30 +27,33 @@ import ubuntuLogo from '../images/cards/card-img-ubuntu.webp';
 import wledLogo from '../images/cards/card-img-wled.webp';
 import wordpressLogo from '../images/cards/card-img-wordpress.webp';
 
+
+
 function Skills() {
     const container = {
         hidden: { opacity: 0 },
         show: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.10,
+                staggerChildren: 0.2, // Stagger appearance for child elements
             },
         },
     };
 
     const item = {
-        hidden: { opacity: 0, y: 20 },
-        show: { opacity: 1, y: 0 },
+        hidden: { opacity: 0, y: 20 }, // Cards start hidden and slightly below
+        show: { opacity: 1, y: 0 },    // Cards animate to visible and move up
+    
     };
-
     const fadeIn = {
         hidden: { opacity: 0, y: -20 },
         show: {
             opacity: 1,
             y: 0,
-            transition: { duration: 0.6 },
+            transition: { duration: 1},
         },
     };
+
     const skillsData = [
         { logo: afterEffectsLogo, alt: "Adobe After Effects", name: "After Effects", percentage: 10 },
         { logo: blenderLogo, alt: "Blender 3D Modeling Software", name: "Blender", percentage: 15 },
@@ -95,6 +98,7 @@ function Skills() {
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true, amount: 0.3 }}
+                
             >
                 {skillsData.map((skill, index) => (
                     <SkillCard

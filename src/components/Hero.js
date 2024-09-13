@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from '../images/logo.png';
 
+
 function Hero() {
     return (
         <section className="custom-gradient text-white text-lg leading-snug h-screen">
