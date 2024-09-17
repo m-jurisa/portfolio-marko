@@ -28,7 +28,7 @@ const Timeline = () => {
     };
 
     return (
-        <section className="sub-section-alternative py-12 bg-gray-100" id="timeline">
+        <section className="sub-section-alternative py-12 " id="timeline">
             <div className="container mx-auto p-6 sm:mt-96 md:mt-16 w-5/6">
                 {/* Timeline Container */}
                 <div className="relative flex flex-col md:grid md:grid-cols-9 items-center text-center md:text-left ">
@@ -44,7 +44,7 @@ const Timeline = () => {
                         viewport={{ once: true }}
                         variants={itemVariants}
                     >
-                        <div className="w-full md:w-1/2">
+                        <div className="w-full md:w-3/4">
                             <h3 className="text-lg font-semibold ">Berufsausbildung zum Bautehniker</h3>
                             <p className="text-sm text-gray-600 mb-2">
                                 Bau und Landvermesser Schulzentrum Osijek Kroatien | 2009-2013
@@ -74,7 +74,7 @@ const Timeline = () => {
                         viewport={{ once: true }}
                         variants={imageVariants}
                     >
-                        <img src={iconBook} alt="Node.js Skill" className="rounded-2xl md:w-3/5" />
+                        <img src={iconBook} alt="Node.js Skill" className="rounded-2xl md:w-4/5" />
                     </motion.div>
 
                     {/* Left side */}
@@ -85,7 +85,7 @@ const Timeline = () => {
                         viewport={{ once: true }}
                         variants={imageVariants}
                     >
-                        <img src={iconPhone} alt="Phone Skill" className="rounded-2xl md:w-3/5" />
+                        <img src={iconPhone} alt="Phone Skill" className="rounded-2xl md:w-4/5" />
                     </motion.div>
                     <motion.div
                         className="md:col-start-5 md:col-span-1 mb-8 flex flex-col justify-center items-center order-5 "
@@ -105,7 +105,7 @@ const Timeline = () => {
                         viewport={{ once: true }}
                         variants={itemVariants}
                     >
-                        <div className="w-full md:w-1/2">
+                        <div className="w-full md:w-3/4">
                             <h3 className="text-lg font-semibold">Telefon Verkauf</h3>
                             <p className="text-sm text-gray-600 mb-2">Studio Moderna | 2013</p>
                             <p className="text-gray-500 ">
@@ -127,7 +127,7 @@ const Timeline = () => {
                         viewport={{ once: true }}
                         variants={itemVariants}
                     >
-                        <div className="w-full md:w-1/2">
+                        <div className="w-full md:w-3/4">
                             <h3 className="text-lg font-semibold">Helpdesk Support</h3>
                             <p className="text-sm text-gray-600 mb-2">T-Mobile Kroatien | 2013 - 2015</p>
                             <p className="text-gray-500">
@@ -161,7 +161,7 @@ const Timeline = () => {
                         viewport={{ once: true }}
                         variants={imageVariants}
                     >
-                        <img src={iconHelpdesk} alt="Helpdesk" className="rounded-2xl md:w-3/5" />
+                        <img src={iconHelpdesk} alt="Helpdesk" className="rounded-2xl md:w-4/5" />
                     </motion.div>
 
                     {/* Left side */}
@@ -172,7 +172,7 @@ const Timeline = () => {
                         viewport={{ once: true }}
                         variants={imageVariants}
                     >
-                        <img src={iconKitchen} alt="Kitchen" className="rounded-2xl md:w-3/5" />
+                        <img src={iconKitchen} alt="Kitchen" className="rounded-2xl md:w-4/5" />
                     </motion.div>
                     <motion.div
                         className="md:col-start-5 md:col-span-1 mb-8 flex flex-col justify-center items-center order-11"
@@ -192,7 +192,7 @@ const Timeline = () => {
                         viewport={{ once: true }}
                         variants={itemVariants}
                     >
-                        <div className="w-full md:w-1/2">
+                        <div className="w-full md:w-3/4">
                             <h3 className="text-lg font-semibold">Küchenhilfe</h3>
                             <p className="text-sm text-gray-600 mb-2">Landgasthof Saalburg | 2016</p>
                             <p className="text-gray-500">
@@ -214,7 +214,7 @@ const Timeline = () => {
                         viewport={{ once: true }}
                         variants={itemVariants}
                     >
-                        <div className="w-full md:w-1/2">
+                        <div className="w-full md:w-3/4">
                             <h3 className="text-lg font-semibold">Wäschemann</h3>
                             <p className="text-sm text-gray-600 mb-2">Wäschemann D. Korominas| 2017 - 2019</p>
                             <p className="text-gray-500">
@@ -248,7 +248,7 @@ const Timeline = () => {
                         viewport={{ once: true }}
                         variants={imageVariants}
                     >
-                        <img src={iconWascher} alt="Wäschemann" className="rounded-2xl md:w-3/5 " />
+                        <img src={iconWascher} alt="Wäschemann" className="rounded-2xl md:w-4/5 " />
                     </motion.div>
 
                     {/* Left side */}
@@ -259,7 +259,7 @@ const Timeline = () => {
                         viewport={{ once: true }}
                         variants={imageVariants}
                     >
-                        <img src={iconCleaner} alt="Cleaner" className="rounded-2xl md:w-3/5" />
+                        <img src={iconCleaner} alt="Cleaner" className="rounded-2xl md:w-4/5" />
                     </motion.div>
                     <motion.div
                         className="md:col-start-5 md:col-span-1 mb-8 flex flex-col justify-center items-center order-17"
@@ -279,7 +279,7 @@ const Timeline = () => {
                         viewport={{ once: true }}
                         variants={itemVariants}
                     >
-                        <div className="w-full md:w-1/2">
+                        <div className="w-full md:w-3/4">
                             <h3 className="text-lg font-semibold">Reinigungskraft</h3>
                             <p className="text-sm text-gray-600 mb-2">Gegenbauer Services | 2019 - 2020</p>
                             <p className="text-gray-500">
@@ -301,7 +301,7 @@ const Timeline = () => {
                         viewport={{ once: true }}
                         variants={itemVariants}
                     >
-                        <div className="w-full md:w-1/2">
+                        <div className="w-full md:w-3/4">
                             <h3 className="text-lg font-semibold "> Vorarbeiter</h3>
                             <p className="text-sm text-gray-600 mb-2">Gegenbauer Services | 2021</p>
                             <p className="text-gray-500">
@@ -335,7 +335,7 @@ const Timeline = () => {
                         viewport={{ once: true }}
                         variants={imageVariants}
                     >
-                        <img src={iconCleanerTwo} alt="Cleaner" className="rounded-2xl md:w-3/5" />
+                        <img src={iconCleanerTwo} alt="Cleaner" className="rounded-2xl md:w-4/5" />
                     </motion.div>
 
                     {/* Left side */}
@@ -346,7 +346,7 @@ const Timeline = () => {
                         viewport={{ once: true }}
                         variants={imageVariants}
                     >
-                        <img src={iconSchool} alt="School" className="rounded-2xl md:w-3/5" />
+                        <img src={iconSchool} alt="School" className="rounded-2xl md:w-4/5" />
                     </motion.div>
 
                     {/* Middle dot */}
@@ -370,7 +370,7 @@ const Timeline = () => {
                         viewport={{ once: true }}
                         variants={itemVariants}
                     >
-                        <div className="w-full md:w-1/2">
+                        <div className="w-full md:w-3/4">
                             <h3 className="text-lg font-semibold">
                                 Ausbildung zum Fachinformatiker Anwendungsentwicklung
                             </h3>
@@ -386,7 +386,7 @@ const Timeline = () => {
                         viewport={{ once: true }}
                         variants={itemVariants}
                     >
-                        <div className="w-full md:w-1/2">
+                        <div className="w-full md:w-3/4">
                             <h3 className="text-lg font-semibold">Berufspraktikum</h3>
                             <p className="text-sm text-gray-600 mb-2">Dots United | 2024</p>
                             <p className="text-gray-500">
@@ -414,7 +414,7 @@ const Timeline = () => {
                         viewport={{ once: true }}
                         variants={imageVariants}
                     >
-                        <img src={iconWebDev} alt="Web Development" className="rounded-2xl md:w-3/5 " />
+                        <img src={iconWebDev} alt="Web Development" className="rounded-2xl md:w-4/5 " />
                     </motion.div>
                     <motion.div
                         className="md:col-start-5 md:col-span-1 mb-8 flex flex-col justify-center order-28 md:order-26 items-center "

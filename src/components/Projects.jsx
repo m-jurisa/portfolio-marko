@@ -29,7 +29,7 @@ function Projects() {
     };
 
     return (
-        <section className="sub-section-alternative py-12 bg-gray-100" id="projects">
+        <section className="sub-section-alternative py-12 " id="projects">
             <motion.h2
                 className="text-center text-7xl"
                 variants={fadeIn}

@@ -1,24 +1,29 @@
 import React from 'react';
-import Hero from './components/Hero';
+
+import Navbar from './sections/Navbar.jsx'
+import Hero from './sections/Hero';
 import AboutMe from './components/AboutMe';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Footer from './components/Footer';
 import Timeline from './components/Timeline';
-import './index.css';
 
+import './index.css';
 
 function App() {
     return (
-        <div>
+        <>
+
+        <main className="max-w-7xl mx-auto">
+            <Navbar />
             <Hero />
             <AboutMe />
-            <Timeline/>
+            <Timeline />
             <Projects />
             <Skills />
-            <Footer />
-        
-        </div>
+        </main>
+        <Footer />
+        </>
     );
 }
 

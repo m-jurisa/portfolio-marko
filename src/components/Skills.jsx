@@ -82,9 +82,9 @@ function Skills() {
     ];
     
     return (
-        <section className="sub-section-alternative py-12 bg-gray-100" id="skills">
+        <section className="sub-section-alternative py-12" id="skills">
             <motion.h2
-                className="text-center text-7xl"
+                className="text-center text-7xl "
                 variants={fadeIn}
                 initial="hidden"
                 whileInView="show"
@@ -93,7 +93,7 @@ function Skills() {
                 Skills
             </motion.h2>
             <motion.div
-                className="skills-container grid grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 xxl:grid-cols-8 gap-8 mb-32 mt-16 mx-auto w-[80vw]"
+                className="skills-container grid grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 xxl:grid-cols-8 gap-8 mb-32 mt-16 mx-auto "
                 variants={container}
                 initial="hidden"
                 whileInView="show"

@@ -28,7 +28,7 @@ function AboutMe() {
     return (
         <section
             ref={sectionRef}
-            className={`sub-section py-12 p-6 bg-gray-100 clearfix ${isVisible ? 'animate__animated animate__fadeIn' : 'opacity-0'}`}
+            className={`sub-section py-12 p-6 clearfix ${isVisible ? 'animate__animated animate__fadeIn' : 'opacity-0'}`}
             id="about-me"
         >
             <h2
