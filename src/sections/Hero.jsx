@@ -29,7 +29,7 @@ const Hero = () => {
             <ambientLight intensity={2} /> 
             <pointLight position={[10, 10, 10]} />
             <OrbitControls
-              enableZoom={true} 
+              enableZoom={false} 
               minDistance={4.15} 
               maxDistance={7.85} 
             />
@@ -48,8 +48,8 @@ const Hero = () => {
         </Canvas>
       </div>
       <div className="max-w-7xl mx-auto absolute bottom-7 left-0 right-0 w.full z-10 c-space">
-        <a href="#about-me" className="w-fit">
-            <Button name="Gemeinsam Großes erschaffen!" isBeam containerClass="smm:w-fit w-full sm:min.w-96"	/>
+        <a href="#about" className="w-fit">
+            <Button name="Gemeinsam Großes erschaffen!" isBeam containerClass="hover:bg-orange-600/50 hover:text-base hover:font-bold; smm:w-fit w-full sm:min.w-96"	/>
         </a>
       </div>
     </section>
