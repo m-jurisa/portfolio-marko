@@ -17,19 +17,17 @@
 
 /* Define the keyframes outside of any selector */
 
-
 body {
     @apply m-0 p-0 font-sans;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: var(--neutral-content);
-    
 
-    
-background-image: linear-gradient( 109.6deg,  rgba(99,37,42,1) 11.2%, rgba(233,98,10,1) 100.2% );    background-size: 200% 200%;
+    background-image: linear-gradient(109.6deg, rgba(99, 37, 42, 1) 11.2%, rgba(233, 98, 10, 1) 100.2%);
+    background-size: 200% 200%;
     animation: gradientShift 100s ease infinite;
-    min-height: 100vh; 
-    margin: 0; 
+    min-height: 100vh;
+    margin: 0;
 }
 
 h2 {
@@ -39,7 +37,6 @@ h2 {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
-
 
 @layer utilities {
     .c-space {
@@ -62,37 +59,31 @@ code {
     }
     /* hero section */
     .hero-section {
-        background: url('src/images/vivid-blurred-colorful-wallpaper-background1.webp'); 
-        background-size: 100% 100%; 
+        background: url('src/images/vivid-blurred-colorful-wallpaper-background1.webp');
+        background-size: 100% 100%;
         background-repeat: no-repeat;
-        position: relative; 
-        
-        
-       
-        
-      }
+        position: relative;
+    }
     .hero_tag {
         @apply text-center xl:text-5xl md:text-4xl sm:text-3xl text-2xl font-generalsans font-black  text-white !leading-tight;
     }
-
-    .btn-grad {
-        background-image: linear-gradient(to right, #3494e6 0%, #ec6ead 51%, #3494e6 100%);
-        margin: 10px;
-        padding: 15px 45px;
-        text-align: center;
-        text-transform: uppercase;
-        transition: 0.5s;
-        background-size: 200% auto;
-        color: white;
-        border-radius: 10px;
-        display: inline-block;
+    /* button component */
+    .btn {
+        @apply flex gap-4 items-center justify-center cursor-pointer p-3 rounded-md bg-black-300/10  transition-all active:scale-95 text-white mx-auto;
+    } 
+    .btn:hover {
+        @apply  bg-orange-600/50 text-base font-bold;
     }
 
-    .btn-grad:hover {
-        background-position: right center;
-        color: #fff;
-        text-decoration: none;
+    .btn-ping {
+        @apply animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75;
     }
+
+    .btn-ping_dot {
+        @apply relative inline-flex rounded-full h-3 w-3 bg-green-500;
+    }
+
+
     .bouncing-emoji {
         animation: bounce-animation 1.5s ease-in-out infinite;
         display: inline-block;

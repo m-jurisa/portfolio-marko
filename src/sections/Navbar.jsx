@@ -15,10 +15,10 @@ const NavItems = () => (
 );
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false); // To control mobile menu visibility
+  const [isOpen, setIsOpen] = useState(false); 
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen); // Toggle the state
+    setIsOpen(!isOpen); 
   };
 
   return (

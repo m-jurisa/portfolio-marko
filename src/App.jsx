@@ -14,7 +14,7 @@ function App() {
     return (
         <>
             <main>
-    <Hero />
+             <Hero />
 
         <div className="max-w-7xl mx-auto overflow-x-hidden">
              <Navbar />

@@ -4,7 +4,7 @@ import { useFrame } from '@react-three/fiber';
 
 const Model = () => {
   const modelRef = useRef();
-  const { scene, error } = useGLTF('/models/gltf/PrimaryIonDrive.glb', true);
+  const { scene, error } = useGLTF('/models/PrimaryIonDrive.glb', true);
 
   useEffect(() => {
     if (error) {
@@ -47,7 +47,7 @@ const Model = () => {
     if (modelRef.current) {
       const rootNode = modelRef.current.children[0]; // RootNode
   
-      modelRef.current.rotation.y += 0.009;
+      modelRef.current.rotation.y += 0.012;
   
       // Apply rotation recursively to all children
       applyRotationRecursively(rootNode);
