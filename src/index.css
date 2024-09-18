@@ -16,26 +16,7 @@
 }
 
 /* Define the keyframes outside of any selector */
-@keyframes gradientShift {
-    0% {
-        background-position: 0% 50%;
-    }
-    20% {
-        background-position: 25% 75%;
-    }
-    40% {
-        background-position: 50% 70%;
-    }
-    60% {
-        background-position: 75% 50%;
-    }
-    80% {
-        background-position: 70% 25%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
+
 
 body {
     @apply m-0 p-0 font-sans;
@@ -43,13 +24,12 @@ body {
     -moz-osx-font-smoothing: grayscale;
     color: var(--neutral-content);
     
-   /* background:black; #42275a → #734b6d
-*/
-background-image: linear-gradient(90deg, #000000 0%, #EB5757 50%, #000000 100%);
-    background-size: 200% 200%;
-    animation: gradientShift 60s ease infinite;
-    min-height: 100vh; /* Ensures full height coverage */
-    margin: 0; /* Removes any default margin */
+
+    
+background-image: linear-gradient( 109.6deg,  rgba(99,37,42,1) 11.2%, rgba(233,98,10,1) 100.2% );    background-size: 200% 200%;
+    animation: gradientShift 100s ease infinite;
+    min-height: 100vh; 
+    margin: 0; 
 }
 
 h2 {
@@ -59,6 +39,7 @@ h2 {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
 
 @layer utilities {
     .c-space {
@@ -80,6 +61,16 @@ code {
         @apply absolute left-0 right-0  bg-black/10 backdrop-blur-sm transition-all duration-300 ease-in-out overflow-hidden z-20 mx-auto sm:hidden block;
     }
     /* hero section */
+    .hero-section {
+        background: url('src/images/vivid-blurred-colorful-wallpaper-background1.webp'); 
+        background-size: 100% 100%; 
+        background-repeat: no-repeat;
+        position: relative; 
+        
+        
+       
+        
+      }
     .hero_tag {
         @apply text-center xl:text-5xl md:text-4xl sm:text-3xl text-2xl font-generalsans font-black  text-white !leading-tight;
     }
@@ -93,7 +84,6 @@ code {
         transition: 0.5s;
         background-size: 200% auto;
         color: white;
-
         border-radius: 10px;
         display: inline-block;
     }

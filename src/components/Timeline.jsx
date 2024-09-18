@@ -31,7 +31,7 @@ const Timeline = () => {
         <section className="sub-section-alternative py-12 " id="timeline">
             <div className="container mx-auto p-6 sm:mt-96 md:mt-16 w-5/6">
                 {/* Timeline Container */}
-                <div className="relative flex flex-col md:grid md:grid-cols-9 items-center text-center md:text-left ">
+                <div className="relative flex flex-col md:grid md:grid-cols-9 items-center text-center md:text-left text  ">
                     {/* Line running through the timeline */}
                     <div className="absolute md:block border border-gray-300 w-0.5 h-full  left-1/2 transform -translate-x-1/2 hidden"></div>
 
@@ -46,10 +46,10 @@ const Timeline = () => {
                     >
                         <div className="w-full md:w-3/4">
                             <h3 className="text-lg font-semibold ">Berufsausbildung zum Bautehniker</h3>
-                            <p className="text-sm text-gray-600 mb-2">
+                            <p className="text-sm text-white mb-2">
                                 Bau und Landvermesser Schulzentrum Osijek Kroatien | 2009-2013
                             </p>
-                            <p className="text-gray-500">Berufsausbildung zum Bautehniker</p>
+                            <p className="text-white">Berufsausbildung zum Bautehniker</p>
                         </div>
                     </motion.div>
 
@@ -107,12 +107,12 @@ const Timeline = () => {
                     >
                         <div className="w-full md:w-3/4">
                             <h3 className="text-lg font-semibold">Telefon Verkauf</h3>
-                            <p className="text-sm text-gray-600 mb-2">Studio Moderna | 2013</p>
-                            <p className="text-gray-500 ">
+                            <p className="text-sm text-white mb-2">Studio Moderna | 2013</p>
+                            <p className="text-white ">
                                 Bei Studio Oderna war ich im Telefonverkauf tätig, habe Kunden beraten, Angebote
                                 erstellt und langfristige Kundenbeziehungen aufgebaut.
                             </p>
-                            <p className="text-gray-500 mt-4">
+                            <p className="text-white mt-4">
                                 Mit gezielter Gesprächsführung konnte ich erfolgreich auf Kundenbedürfnisse eingehen und
                                 zum Unternehmenswachstum beitragen.
                             </p>
@@ -129,15 +129,15 @@ const Timeline = () => {
                     >
                         <div className="w-full md:w-3/4">
                             <h3 className="text-lg font-semibold">Helpdesk Support</h3>
-                            <p className="text-sm text-gray-600 mb-2">T-Mobile Kroatien | 2013 - 2015</p>
-                            <p className="text-gray-500">
+                            <p className="text-sm text-white mb-2">T-Mobile Kroatien | 2013 - 2015</p>
+                            <p className="text-white">
                                 Bei T-Com war ich im 1st-Level-Support für Systemintegration tätig.
                             </p>
-                            <p className="text-gray-500 mt-4">
+                            <p className="text-white mt-4">
                                 Dort habe ich technische Anfragen entgegengenommen, einfache Störungen diagnostiziert
                                 und Lösungen bereitgestellt.
                             </p>
-                            <p className="text-gray-500 mt-4">
+                            <p className="text-white mt-4">
                                 Außerdem leitete ich komplexere Probleme an den 2nd-Level-Support weiter und sorgte für
                                 eine reibungslose Kommunikation zwischen den Teams.
                             </p>
@@ -194,12 +194,12 @@ const Timeline = () => {
                     >
                         <div className="w-full md:w-3/4">
                             <h3 className="text-lg font-semibold">Küchenhilfe</h3>
-                            <p className="text-sm text-gray-600 mb-2">Landgasthof Saalburg | 2016</p>
-                            <p className="text-gray-500">
+                            <p className="text-sm text-white mb-2">Landgasthof Saalburg | 2016</p>
+                            <p className="text-white">
                                 Als Küchenhilfe in Saalburg war ich für die Vorbereitung von Zutaten, das Anrichten von
                                 Speisen und die Reinigung der Arbeitsbereiche zuständig.
                             </p>
-                            <p className="text-gray-500 mt-4">
+                            <p className="text-white mt-4">
                                 Ich unterstützte das Küchenteam bei der täglichen Zubereitung und sorgte für einen
                                 reibungslosen Ablauf in der Küche.
                             </p>
@@ -216,16 +216,16 @@ const Timeline = () => {
                     >
                         <div className="w-full md:w-3/4">
                             <h3 className="text-lg font-semibold">Wäschemann</h3>
-                            <p className="text-sm text-gray-600 mb-2">Wäschemann D. Korominas| 2017 - 2019</p>
-                            <p className="text-gray-500">
+                            <p className="text-sm text-white mb-2">Wäschemann D. Korominas| 2017 - 2019</p>
+                            <p className="text-white">
                                 Als Wäschemann war ich für das Sortieren, Waschen, Trocknen und Falten von Wäsche
                                 verantwortlich.{' '}
                             </p>
-                            <p className="text-gray-500 mt-4">
+                            <p className="text-white mt-4">
                                 Ich stellte sicher, dass alle Textilien sauber und gepflegt an die entsprechenden
                                 Abteilungen oder Kunden zurückgegeben wurden.
                             </p>
-                            <p className="text-gray-500 mt-4">
+                            <p className="text-white mt-4">
                                 Zudem kümmerte ich mich um kleinere Reparaturen und die Wartung der Maschinen.
                             </p>
                         </div>
@@ -281,12 +281,12 @@ const Timeline = () => {
                     >
                         <div className="w-full md:w-3/4">
                             <h3 className="text-lg font-semibold">Reinigungskraft</h3>
-                            <p className="text-sm text-gray-600 mb-2">Gegenbauer Services | 2019 - 2020</p>
-                            <p className="text-gray-500">
+                            <p className="text-sm text-white mb-2">Gegenbauer Services | 2019 - 2020</p>
+                            <p className="text-white">
                                 Als Reinigungskraft bei Gegenbauer war ich verantwortlich für die Sauberkeit von Büros
                                 und öffentlichen Bereichen.{' '}
                             </p>
-                            <p className="text-gray-500 mt-4">
+                            <p className="text-white mt-4">
                                 Ich sorgte für hygienische Standards und kümmerte mich um die ordnungsgemäße Entsorgung
                                 von Abfällen sowie das Auffüllen von Materialien.
                             </p>
@@ -303,11 +303,11 @@ const Timeline = () => {
                     >
                         <div className="w-full md:w-3/4">
                             <h3 className="text-lg font-semibold "> Vorarbeiter</h3>
-                            <p className="text-sm text-gray-600 mb-2">Gegenbauer Services | 2021</p>
-                            <p className="text-gray-500">
+                            <p className="text-sm text-white mb-2">Gegenbauer Services | 2021</p>
+                            <p className="text-white">
                                 Als Vorarbeiter in einer Reinigungsfirma leitete ich das Team, überwachte die
                                 Arbeitsqualität und koordinierte die Einsatzpläne.
-                                <p className="text-gray-500 mt-4">
+                                <p className="text-white mt-4">
                                     Ich sorgte für einen reibungslosen Ablauf und stand als Ansprechpartner für Kunden
                                     zur Verfügung.
                                 </p>
@@ -374,7 +374,7 @@ const Timeline = () => {
                             <h3 className="text-lg font-semibold">
                                 Ausbildung zum Fachinformatiker Anwendungsentwicklung
                             </h3>
-                            <p className="text-sm text-gray-600">Lutz & Grub AG | 2022 - 2024</p>
+                            <p className="text-sm text-white">Lutz & Grub AG | 2022 - 2024</p>
                         </div>
                     </motion.div>
 
@@ -388,17 +388,17 @@ const Timeline = () => {
                     >
                         <div className="w-full md:w-3/4">
                             <h3 className="text-lg font-semibold">Berufspraktikum</h3>
-                            <p className="text-sm text-gray-600 mb-2">Dots United | 2024</p>
-                            <p className="text-gray-500">
+                            <p className="text-sm text-white mb-2">Dots United | 2024</p>
+                            <p className="text-white">
                                 Während meines Praktikums bei Dots United erstellte ich im Abschlussprojekt ein
                                 Dashboard für den öffentlichen Verkehr.
-                                <p className="text-gray-500 mt-4">
+                                <p className="text-white mt-4">
                                     Dabei nutzte ich die Open Data API des VRN (Verkehrsverbund Rhein-Neckar), um
                                     Echtzeitdaten anzuzeigen und eine benutzerfreundliche Oberfläche zur Verfügung zu
                                     stellen.
                                 </p>
                             </p>
-                            <p className="text-gray-500 mt-4">
+                            <p className="text-white mt-4">
                                 Das Projekt beinhaltete die Integration der API sowie die Gestaltung des Frontends.
                             </p>
                         </div>

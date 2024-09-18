@@ -13,14 +13,16 @@ import './index.css';
 function App() {
     return (
         <>
+            <main>
+    <Hero />
 
-        <main className="max-w-7xl mx-auto">
-            <Navbar />
-            <Hero />
-            <AboutMe />
-            <Timeline />
-            <Projects />
-            <Skills />
+        <div className="max-w-7xl mx-auto overflow-x-hidden">
+             <Navbar />
+                <AboutMe />
+                <Timeline />
+                <Projects />
+                <Skills />
+        </div>
         </main>
         <Footer />
         </>
