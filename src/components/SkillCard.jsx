@@ -10,7 +10,7 @@ const SkillCard = ({ logoSrc, altText, skillName, percentage, variants }) => {
 
     return (
         <motion.div
-            className="card bg-base-100 w-full md:w-auto shadow-xl relative"
+            className="card bg-base-100 w-full md:w-auto shadow-xl relative  bg-black/80"
             variants={variants}
             initial="hidden"
             whileInView="show"
@@ -34,8 +34,8 @@ const SkillCard = ({ logoSrc, altText, skillName, percentage, variants }) => {
                     </div>
                 )}
             </figure>
-            <div className="card-body items-center text-center">
-                <h2 className="card-title">{skillName}</h2>
+            <div className="card-body items-center text-center p-4 ">
+                <p className=" text-sm text-white">{skillName}</p>
             </div>
         </motion.div>
     );

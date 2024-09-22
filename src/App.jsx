@@ -1,12 +1,13 @@
 import React from 'react';
 
-import Navbar from './sections/Navbar.jsx'
+import Navbar from './sections/Navbar'
 import Hero from './sections/Hero';
 import About from './sections/About';
-import Projects from './components/Projects';
-import Skills from './components/Skills';
-import Footer from './components/Footer';
-import Timeline from './components/Timeline';
+import Projects from './sections/Projects';
+import Contact from './sections/Contact';
+import Skills from './sections/Skills';
+import Footer from './sections/Footer';
+import Expirience from './sections/Expirience';
 
 import './index.css';
 
@@ -19,9 +20,10 @@ function App() {
         <div className="max-w-7xl mx-auto overflow-x-hidden">
                 <Navbar />
                 <About />
-                <Timeline />
                 <Projects />
+                <Expirience />
                 <Skills />
+                <Contact />
         </div>
         </main>
         <Footer />

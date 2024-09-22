@@ -53,22 +53,12 @@ module.exports = {
             },
         },
     },
-    plugins: [require('daisyui')],
+    plugins: [require('daisyui'),
+        
+    ],
     daisyui: {
         themes: [
-            {
-                mytheme: {
-                    'primary': '#34d399',
-                    'secondary': '#fbbf24',
-                    'accent': '#1fb2a6',
-                    'neutral': '#191D24',
-                    'base-100': '#FFFFFF',
-                    'info': '#3ABFF8',
-                    'success': '#36D399',
-                    'warning': '#FBBD23',
-                    'error': '#F87272',
-                },
-            },
+           
         ],
     },
 };
