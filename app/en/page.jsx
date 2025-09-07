@@ -1,0 +1,35 @@
+import Hero from '../../components/Hero';
+import Offerings from '../../components/Offerings';
+import ServicesPackages from '../../components/ServicesPackages';
+import Process from '../../components/Process';
+import PricingSignals from '../../components/PricingSignals';
+import ShowreelGallery from '../../components/ShowreelGallery';
+import Testimonials from '../../components/Testimonials';
+import CTABar from '../../components/CTABar';
+import Skills from '../../components/Skills';
+import Contact from '../../components/Contact';
+import { deFreelanceServices, deProcess, dePricingSignals, enPositioning, enCTAs, enTestimonials } from '../../lib/content';
+import { myProjects } from '../../lib/constants';
+
+export default function EnHome() {
+  return (
+    <>
+      <Hero locale="en" />
+      <main className="max-w-7xl mx-auto overflow-x-hidden c-space py-8">
+        <Offerings locale="en" />
+        <ServicesPackages services={deFreelanceServices} />
+        <Process steps={deProcess} />
+        <PricingSignals items={dePricingSignals} />
+        <ShowreelGallery videoSrc={'/textures/project/project1.mp4'} projects={myProjects} />
+        <Testimonials items={enTestimonials} title="Testimonials" />
+        <CTABar items={[
+          { label: enCTAs[0], href: '/en/contact?type=proposal', beam: true },
+          { label: enCTAs[1], href: '/en/contact?type=call' },
+          { label: enCTAs[2], href: 'mailto:marko.jurisa@proton.me' },
+        ]} />
+        <Skills />
+        <Contact />
+      </main>
+    </>
+  );
+}
