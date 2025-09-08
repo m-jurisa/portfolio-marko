@@ -28,7 +28,6 @@ export default function Freiberuflich() {
         <FAQs items={deFaqs} />
         <CTABar items={[
           { label: 'Projekt anfragen', href: '#contact', beam: true },
-          { label: 'Kennenlern-Call', href: '#contact' },
           { label: 'Briefing-Vorlage laden', href: '/briefing.pdf' },
         ]} />
         <Skills />

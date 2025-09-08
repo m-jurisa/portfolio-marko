@@ -1,4 +1,16 @@
+"use client";
+
+import { useState } from 'react';
+
 export default function PageIntro({ kicker, title, subtitle, showMeta = true, email = 'marko.jurisa@proton.me' }) {
+  const [hasCopied, setHasCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(email);
+    setHasCopied(true);
+    setTimeout(() => setHasCopied(false), 1600);
+  };
+
   return (
     <section className="page-intro">
       <div className="page-intro_inner">
@@ -37,7 +49,29 @@ export default function PageIntro({ kicker, title, subtitle, showMeta = true, em
               Verfügbar: DE vor Ort und Hybrid / weltweit Remote 
             </div>
 
-            <a href={`mailto:${email}`} className="text-white/80 hover:text-white">{email}</a>
+            {/* Email with mailto + copy button */}
+            <div className="inline-flex items-center gap-2">
+              <a 
+                href={`mailto:${email}`} 
+                className="text-white/80 hover:text-white transition-colors duration-200"
+              >
+                {email}
+              </a>
+              
+              <button
+                type="button"
+                onClick={handleCopy}
+                className="p-1 text-white/70 hover:text-white transition-colors duration-200 group"
+                title={hasCopied ? "E-Mail kopiert!" : "E-Mail kopieren"}
+                aria-live="polite"
+              >
+                <img
+                  src={hasCopied ? "/assets/tick.svg" : "/assets/copy.svg"}
+                  alt={hasCopied ? "E-Mail kopiert" : "E-Mail kopieren"}
+                  className="w-4 h-4 opacity-70 group-hover:opacity-100 transition-opacity duration-200"
+                />
+              </button>
+            </div>
           </div>
         )}
       </div>

@@ -22,7 +22,6 @@ export default function Vollzeit() {
         <Preferences data={dePreferences} />
         <Testimonials items={deTestimonials} />
         <CTABar items={[
-          { label: 'CV herunterladen', href: '/resume.pdf' },
           { label: 'Bewerbungsgespräch anfragen', href: '#contact', beam: true },
           { label: 'E-Mail senden', href: 'mailto:marko.jurisa@proton.me' },
         ]} />
