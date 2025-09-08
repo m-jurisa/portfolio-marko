@@ -1,28 +1,61 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 import Button from "./Button";
 
-/* Resolve active modus from URL → localStorage → default */
 const VALID = ["vollzeit", "freiberuflich"];
-function readMode(locale = "de") {
-  if (typeof window === "undefined") return "vollzeit";
-  const url = new URL(window.location.href);
-  const qp = url.searchParams.get("modus");
+
+/* SSR-safe: only path/query, no localStorage here */
+function parseModeFromUrl(pathname, searchParams) {
+  const p = (pathname || "").toLowerCase();
+  if (p.includes("/vollzeit")) return "vollzeit";
+  if (p.includes("/freiberuflich")) return "freiberuflich";
+
+  const qp = searchParams?.get?.("modus");
   if (VALID.includes(qp)) return qp;
-  const key = locale === "de" ? "modus-de" : "modus-en";
-  const stored = window.localStorage.getItem(key);
-  if (VALID.includes(stored)) return stored;
-  return "vollzeit";
+
+  return "freiberuflich"; // single stable default for SSR & first client render
+}
+
+/* URL explicitly forces the mode? */
+function urlHasExplicitMode(pathname, searchParams) {
+  const p = (pathname || "").toLowerCase();
+  if (p.includes("/vollzeit") || p.includes("/freiberuflich")) return true;
+  const qp = searchParams?.get?.("modus");
+  return VALID.includes(qp);
 }
 
 export default function About({ locale = "de" }) {
-  const [mode, setMode] = useState("vollzeit");
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // IMPORTANT: derive initial from URL only (SSR-safe)
+  const [mode, setMode] = useState(() => parseModeFromUrl(pathname, searchParams));
   const [hasCopied, setHasCopied] = useState(false);
 
+  // Keep in sync when navigation changes
   useEffect(() => {
-    setMode(readMode(locale));
-  }, [locale]);
+    setMode(parseModeFromUrl(pathname, searchParams));
+  }, [pathname, searchParams]);
+
+  // If URL doesn't dictate the mode, allow localStorage to influence after mount
+  useEffect(() => {
+    const explicit = urlHasExplicitMode(pathname, searchParams);
+    if (!explicit && typeof window !== "undefined") {
+      const key = locale === "de" ? "modus-de" : "modus-en";
+      const stored = window.localStorage.getItem(key);
+      if (VALID.includes(stored)) setMode(stored);
+    }
+    function onStorage(e) {
+      if (!explicit) {
+        const key = locale === "de" ? "modus-de" : "modus-en";
+        if (e.key === key && VALID.includes(e.newValue)) setMode(e.newValue);
+      }
+    }
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, [pathname, searchParams, locale]);
 
   const isVollzeit = mode === "vollzeit";
   const isFreelance = mode === "freiberuflich";
@@ -36,7 +69,7 @@ export default function About({ locale = "de" }) {
   return (
     <section className="c-space my-20 pt-16" id="about">
       <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 h-full">
-        {/* Intro / Bio (dein Text, unverändert) */}
+        {/* Intro / Bio */}
         <div className="col-span-1 xl:row-span-3">
           <div className="grid-container">
             <img
@@ -44,7 +77,7 @@ export default function About({ locale = "de" }) {
               alt="Profil"
               className="w-full sm:h-[276px] h-fit object-contain"
             />
-           <div>
+            <div>
               <p className="grid-headtext">Hallo, ich bin Marko,</p>
               <p className="grid-subtext">
                 kroatischer Staatsbürger, der seit <strong>knapp 9&nbsp;Jahren</strong> in
@@ -56,7 +89,7 @@ export default function About({ locale = "de" }) {
           </div>
         </div>
 
-        {/* Tech Stack & Fokus — modusabhängig, knapp und technisch */}
+        {/* Tech Stack & Fokus — modusabhängig */}
         <div className="col-span-1 xl:row-span-3">
           <div className="grid-container">
             <img
@@ -71,7 +104,7 @@ export default function About({ locale = "de" }) {
                 <ul className="grid-subtext list-disc ml-5 space-y-1.5">
                   <li>
                     <strong>Frontend:</strong> React/Next.js (App Router), SSG/ISR,
-                    Tailwind, Headless UI, a11y-Basics.
+                    Tailwind, Headless UI.
                   </li>
                   <li>
                     <strong>Architektur:</strong> modulare Komponenten, Zustand mit
@@ -161,7 +194,8 @@ export default function About({ locale = "de" }) {
               </p>
               {isVollzeit ? (
                 <ul className="grid-subtext list-disc ml-5 space-y-1.5">
-                  <li>Remote in DE; Hybrid in Mitteldeutschland möglich.</li>
+                  <li>Remote-first (DE); Hybrid in Mitteldeutschland möglich.</li>
+                  <li>Vor Ort: Kreis Heilbronn &amp; Ludwigsburg.</li>
                   <li>Teams mit Code-Reviews, sauberem Git-Flow und CI/CD bevorzugt.</li>
                   <li>Mehrwert: belastbare Frontends, klare Kommunikation, Tempo.</li>
                 </ul>
@@ -172,7 +206,9 @@ export default function About({ locale = "de" }) {
                   <li>Mehrwert: Speed, Kosten­effizienz, Automatisierung, Kreativität.</li>
                 </ul>
               )}
-              <Button name="Kontaktiere mich" isBeam containerClass="w-full mt-10" />
+              <a href="#contact" className="w-full inline-block">
+                <Button name="Kontaktiere mich" isBeam containerClass="w-full mt-10" />
+              </a>
             </div>
           </div>
         </div>

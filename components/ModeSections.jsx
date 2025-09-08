@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Button from "./Button";
 
-/* ----------------------------- helpers -------------------------------- */
+/* URL param helper */
 function setQueryParam(key, value) {
   if (typeof window === "undefined") return;
   const url = new URL(window.location.href);
@@ -13,10 +13,11 @@ function setQueryParam(key, value) {
 }
 
 const ACCENTS = {
-  vollzeit:      { hex: "#f59e0b", rgb: "245 158 11" }, // amber
-  freiberuflich: { hex: "#f97316", rgb: "249 115 22" }, // orange
+  vollzeit:      { hex: "#f59e0b", rgb: "245 158 11" },
+  freiberuflich: { hex: "#f97316", rgb: "249 115 22" },
 };
 
+/* UI parts */
 function StatStrip({ items = [] }) {
   return (
     <div className="flex flex-wrap items-center gap-2 mt-2">
@@ -50,7 +51,7 @@ function Card({ title, children }) {
   );
 }
 
-/* ------------------------------ sections -------------------------------- */
+/* Sections */
 const FullTimeSection = ({ locale = "de" }) => {
   const de = locale === "de";
   return (
@@ -70,16 +71,16 @@ const FullTimeSection = ({ locale = "de" }) => {
                 "Remote-first (DE)",
                 "Hybrid – Mitteldeutschland",
                 "Vor Ort – Kreis Heilbronn & Ludwigsburg",
+                "Sprachen: Deutsch, Englisch, Kroatisch",
                 "Code-Reviews & CI/CD bevorzugt",
-                "Deutsch & Englisch",
               ]
             : [
                 "Start: short-notice",
                 "Remote-first (DE)",
                 "Hybrid – Central Germany",
                 "On-site – Heilbronn & Ludwigsburg districts",
+                "Languages: German, English, Croatian",
                 "Prefer code reviews & CI/CD",
-                "German & English",
               ]
         }
       />
@@ -116,10 +117,7 @@ const FullTimeSection = ({ locale = "de" }) => {
                   <strong>Go + htmx</strong> für serverseitig gerenderte, performante Oberflächen
                   (Dashboards, interne Tools, latenzkritische Formulare)
                 </li>
-                <li>
-                  Neue Technologien <strong>schnell evaluieren und produktiv einsetzen</strong>
-                  (Evaluation → PoC → Rollout)
-                </li>
+                <li>Neue Technologien zügig evaluieren und produktiv einsetzen (Evaluation → PoC → Rollout)</li>
               </>
             ) : (
               <>
@@ -130,10 +128,7 @@ const FullTimeSection = ({ locale = "de" }) => {
                   <strong>Go + htmx</strong> for server-rendered, high-throughput UIs
                   (dashboards, internal tools, low-latency forms)
                 </li>
-                <li>
-                  <strong>Rapidly evaluate and adopt new tech</strong>
-                  (evaluation → PoC → rollout)
-                </li>
+                <li>Rapidly evaluate and adopt new tech (evaluation → PoC → rollout)</li>
               </>
             )}
           </ul>
@@ -173,11 +168,12 @@ const FullTimeSection = ({ locale = "de" }) => {
         </Card>
       </div>
 
+      {/* CONTACT ANCHOR */}
       <div className="flex flex-col sm:flex-row gap-4 mt-8">
         <a href="#bewerbungsunterlagen" className="w-fit">
           <Button name={de ? "Bewerbungsunterlagen anfragen" : "Request application docs"} isBeam />
         </a>
-        <a href={de ? "/de/kontakt" : "/en/contact"} className="w-fit">
+        <a href="#contact" className="w-fit">
           <Button name={de ? "Kontakt für Bewerbung" : "Contact for application"} />
         </a>
       </div>
@@ -193,19 +189,21 @@ const FreelanceSection = ({ locale = "de" }) => {
       <p className="text-white/70 max-w-3xl mb-6">
         {de ? (
           <>
-            Ziel: <span className="text-white">schnelle, kosten­effiziente Ergebnisse</span> mit messbarem Impact. Stack je nach Ziel:
+            Ziel: <span className="text-white">schnelle, kosten­effiziente Ergebnisse</span> mit messbarem Impact. Stack nach Ziel:
             <span className="text-white"> Next.js</span> für SSG/ISR,
-            <span className="text-white"> Go + htmx</span> für server-getriebene, schlanke Interfaces,
-            <span className="text-white"> Python</span> für LLM-Workflows & Automatisierung. Neue Tools werden
-            <span className="text-white"> zügig evaluiert und produktiv gemacht</span>.
+            <span className="text-white"> Go + htmx</span> für server-getriebene, extrem schnelle Web-Apps mit minimalem JS,
+            <span className="text-white"> Python</span> für LLM-Workflows & Automatisierung.
+            Zusätzlich: <span className="text-white">Videobearbeitung & Motion Graphics</span> (Showreels, Social Assets, Werbeclips).
+            Neue Tools werden <span className="text-white">zügig evaluiert und produktiv gemacht</span>.
           </>
         ) : (
           <>
             Goal: <span className="text-white">fast, cost-efficient delivery</span> with measurable impact. Stack by outcome:
             <span className="text-white"> Next.js</span> for SSG/ISR,
-            <span className="text-white"> Go + htmx</span> for server-driven, lean interfaces,
-            <span className="text-white"> Python</span> for LLM workflows & automation. New tools are
-            <span className="text-white"> rapidly evaluated and put into production</span>.
+            <span className="text-white"> Go + htmx</span> for server-driven, ultra-fast web apps with minimal JS,
+            <span className="text-white"> Python</span> for LLM workflows & automation.
+            Additionally: <span className="text-white">video editing & motion graphics</span> (showreels, social assets, promos).
+            New tools are <span className="text-white">rapidly evaluated and put into production</span>.
           </>
         )}
       </p>
@@ -219,6 +217,7 @@ const FreelanceSection = ({ locale = "de" }) => {
                 "Transparente Milestones",
                 "Fixpreise möglich",
                 "Remote-first (DE) · Hybrid Mitteldeutschland · Vor Ort: Heilbronn & Ludwigsburg",
+                "Sprachen: Deutsch, Englisch, Kroatisch",
               ]
             : [
                 "Quote in 24–48 h",
@@ -226,6 +225,7 @@ const FreelanceSection = ({ locale = "de" }) => {
                 "Transparent milestones",
                 "Fixed pricing possible",
                 "Remote-first (DE) · Hybrid Central Germany · On-site: Heilbronn & Ludwigsburg",
+                "Languages: German, English, Croatian",
               ]
         }
       />
@@ -238,12 +238,14 @@ const FreelanceSection = ({ locale = "de" }) => {
                 <li>Landingpage oder kleine Website</li>
                 <li>Grund-SEO, OG-Tags, Basis-Animationen</li>
                 <li>Deployment & Tracking</li>
+                <li>Social Assets (Kurzclips/Grafiken) bei Bedarf</li>
               </>
             ) : (
               <>
                 <li>Landing page or small site</li>
                 <li>Basic SEO, OG tags, basic animations</li>
                 <li>Deployment & analytics</li>
+                <li>Social assets (short clips/graphics) on demand</li>
               </>
             )}
           </ul>
@@ -256,12 +258,14 @@ const FreelanceSection = ({ locale = "de" }) => {
                 <li>Mehrseitige Site, optionales CMS</li>
                 <li>Performance-Optimierung, Best-Practices</li>
                 <li>Analytics, Funnels, Reporting</li>
+                <li>Leichte Marketing-Motion (Micro-Interactions)</li>
               </>
             ) : (
               <>
                 <li>Multi-page site, optional CMS</li>
                 <li>Performance optimization, best practices</li>
                 <li>Analytics, funnels, reporting</li>
+                <li>Light marketing motion (micro-interactions)</li>
               </>
             )}
           </ul>
@@ -271,15 +275,17 @@ const FreelanceSection = ({ locale = "de" }) => {
           <ul className="list-disc ml-5 space-y-1.5">
             {de ? (
               <>
-                <li>Individuelle Komponenten, komplexe Motion</li>
+                <li>Maßgeschneiderte, sehr schnelle Web-Apps auf Basis <strong>Go + htmx</strong> (server-getrieben, minimal JS)</li>
                 <li>API-Integrationen, Auth, einfache 3D/Three.js</li>
-                <li>Automatisierung (Bild/Video, Content-Pipelines)</li>
+                <li><strong>Video Editing & Motion Graphics</strong> (Showreels, Social Assets, Werbeclips)</li>
+                <li>Automatisierung (Bild/Video, Content-Pipelines) … und mehr</li>
               </>
             ) : (
               <>
-                <li>Custom components, advanced motion</li>
+                <li>Custom ultra-fast web apps using <strong>Go + htmx</strong> (server-driven, minimal JS)</li>
                 <li>API integrations, auth, simple 3D/Three.js</li>
-                <li>Automation (image/video, content pipelines)</li>
+                <li><strong>Video editing & motion graphics</strong> (showreels, social assets, promos)</li>
+                <li>Automation (image/video, content pipelines) … and more</li>
               </>
             )}
           </ul>
@@ -326,14 +332,15 @@ const FreelanceSection = ({ locale = "de" }) => {
         </Card>
       </div>
 
+      {/* CONTACT ANCHOR */}
       <div className="flex flex-col sm:flex-row gap-4 mt-8">
-        <a href={de ? "/de/kontakt?typ=projekt" : "/en/contact?type=project"} className="w-fit">
+        <a href="#contact" className="w-fit">
           <Button name={de ? "Projekt anfragen" : "Request a project"} isBeam />
         </a>
         <a href="#leistungen" className="w-fit">
           <Button name={de ? "Leistungen & Pakete" : "Services & packages"} />
         </a>
-        <a href={de ? "/de/kontakt?typ=erstgespraech" : "/en/contact?type=introcall"} className="w-fit">
+        <a href="#contact" className="w-fit">
           <Button name={de ? "Erstgespräch buchen" : "Book intro call"} />
         </a>
       </div>
@@ -341,11 +348,10 @@ const FreelanceSection = ({ locale = "de" }) => {
   );
 };
 
-/* ------------------------------- wrapper -------------------------------- */
+/* Wrapper */
 export default function ModeSections({ initialMode = "vollzeit", locale = "de" }) {
   const [mode, setMode] = useState(initialMode);
 
-  // Initialize from localStorage if no explicit URL param
   useEffect(() => {
     if (typeof window === "undefined") return;
     const url = new URL(window.location.href);
@@ -372,7 +378,6 @@ export default function ModeSections({ initialMode = "vollzeit", locale = "de" }
       className="c-space"
       style={{ ["--accent"]: accent.hex, ["--accent-rgb"]: accent.rgb }}
     >
-      {/* Segmented control */}
       <div className="flex justify-center mb-6">
         <div className="segmented" role="tablist" aria-label={locale === "de" ? "Modus wählen" : "Select mode"}>
           <button
@@ -394,7 +399,6 @@ export default function ModeSections({ initialMode = "vollzeit", locale = "de" }
         </div>
       </div>
 
-      {/* Content */}
       {mode === "vollzeit" ? (
         <FullTimeSection locale={locale} />
       ) : (
