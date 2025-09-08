@@ -59,9 +59,10 @@ export default function Hero({ locale = "de", initialMode = "vollzeit" }) {
     ? (isVollzeit ? "eine Vollzeitstelle" : "freiberufliche Projekte")
     : "freelance projects";
 
-  const sublineDE = isFreelance
-    ? "Kurzfristige Projekt-Sprints, Showreels, Social-Assets, 3D-Produkt-Mockups und visuelle Kampagnen, die Markenauftritte stärken und Projekte in Szene setzen."
-    : "IT-Design, Video-Postproduktion und einfache 3D-Modelle – für Teams, die Tempo und Qualität verbinden.";
+const sublineDE = isFreelance
+  ? "Schnelle, kosteneffiziente IT-Programmierung und Optimierung: Landingpages & Web-Apps (Next.js, Go+htmx), Performance-Tuning, Automatisierungen, Showreels/Social-Assets und 3D-Produkt-Mockups – fokussiert auf klare Ziele und messbare Wirkung."
+  : "Softwareentwicklung und Produktumsetzung: Frontend & Backend (React/Next.js, Node/Go), Webdesign & UI-Integration, Motion Design/Video-Postproduktion sowie einfache 3D-Modellierung – für Teams, die Tempo, Qualität und saubere Architektur verbinden.";
+
 
   const sublineEN =
     "Design, video editing, and simple 3D—fast turnarounds, clear communication.";

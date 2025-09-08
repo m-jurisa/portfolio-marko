@@ -73,7 +73,7 @@ export default function About({ locale = "de" }) {
         <div className="col-span-1 xl:row-span-3">
           <div className="grid-container">
             <img
-              src="/assets/grid1.png"
+              src="/assets/grid1.webp"
               alt="Profil"
               className="w-full sm:h-[276px] h-fit object-contain"
             />
@@ -93,7 +93,7 @@ export default function About({ locale = "de" }) {
         <div className="col-span-1 xl:row-span-3">
           <div className="grid-container">
             <img
-              src="/assets/grid2.png"
+              src="/assets/grid2.webp"
               alt="Tech Stack"
               className="w-full sm:h-[276px] h-fit object-contain"
             />
@@ -161,7 +161,7 @@ export default function About({ locale = "de" }) {
         <div className="xl:col-span-1 xl:row-span-2">
           <div className="grid-container">
             <img
-              src="/assets/grid4.png"
+              src="/assets/grid4.webp"
               alt="Kontakt"
               className="w-full md:h-[126px] sm:h-[276px] h-fit object-cover sm:object-top mt-16"
             />
@@ -217,7 +217,7 @@ export default function About({ locale = "de" }) {
         <div className="xl:col-span-2 xl:row-span-2">
           <div className="grid-container">
             <img
-              src="/assets/grid3.png"
+              src="/assets/grid3.webp"
               alt="Arbeitsweise"
               className="w-full sm:h-[266px] h-fit object-contain"
             />

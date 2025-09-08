@@ -112,7 +112,7 @@ const Contact = () => {
       {alert.show && <Alert {...alert} />}
       <div className="relative min-h-screen flex items-center justify-center flex-col">
         <img
-          src="/assets/terminal.png"
+          src="/assets/terminal.webp"
           alt="terminal-bg"
           className="absolute inset-0 min-h-screen"
         />
