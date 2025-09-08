@@ -1,10 +1,10 @@
 import ServicesPackages from '../../../components/ServicesPackages';
 import Process from '../../../components/Process';
 import PricingSignals from '../../../components/PricingSignals';
-import ShowreelGallery from '../../../components/ShowreelGallery';
 import FAQs from '../../../components/FAQs';
 import Testimonials from '../../../components/Testimonials';
 import CTABar from '../../../components/CTABar';
+import Projects from '../../../components/Projects';
 import { myProjects } from '../../../lib/constants';
 import { deFreelanceServices, deProcess, dePricingSignals, deFaqs, deTestimonials } from '../../../lib/content';
 import PageIntro from '../../../components/PageIntro';
@@ -23,7 +23,7 @@ export default function Freiberuflich() {
         <ServicesPackages services={deFreelanceServices} />
         <Process steps={deProcess} />
         <PricingSignals items={dePricingSignals} />
-        <ShowreelGallery videoSrc={'/textures/project/project1.mp4'} projects={myProjects} />
+        <Projects />
         <Testimonials items={deTestimonials} />
         <FAQs items={deFaqs} />
         <CTABar items={[
