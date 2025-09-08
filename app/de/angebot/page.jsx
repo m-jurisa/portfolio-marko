@@ -1,14 +1,16 @@
 import PageIntro from '../../../components/PageIntro';
+import Contact from '../../../components/Contact';
 
 export default function Angebot() {
   return (
     <>
       <PageIntro
+        kicker="Angebot"
         title={(<><span>Mein </span><span className="accent-text">Angebot</span><span> — passgenau für Content‑Creator & Unternehmen</span></>)}
         subtitle="Wähle aus den Bereichen, die zu deinem Bedarf passen. Transparente Abläufe und klare Ergebnisse."
       />
-      <main className="max-w-7xl mx-auto c-space py-16">
-        <div className="grid md:grid-cols-2 gap-6">
+      <main className="max-w-7xl mx-auto c-space py-16 space-y-12">
+        <div className="offer-grid">
           <details className="grid-container">
             <summary className="text-white font-semibold cursor-pointer">Für YouTuber & Content‑Creator</summary>
             <ul className="grid-subtext list-disc ml-5 mt-3">
@@ -42,8 +44,8 @@ export default function Angebot() {
             </ul>
           </details>
         </div>
+        <Contact />
       </main>
     </>
   );
 }
-

@@ -15,10 +15,11 @@ export default function Freiberuflich() {
   return (
     <>
       <PageIntro
+        kicker="Freiberuflich"
         title={(<><span>Ich bin offen für </span><span className="accent-text">kurzfristige</span><span> und </span><span className="accent-text">langfristige</span><span> Projekte</span></>)}
         subtitle="Leistungen, Konditionen und ausgewählte Referenzen."
       />
-      <main className="max-w-7xl mx-auto c-space py-16">
+      <main className="max-w-7xl mx-auto c-space py-16 space-y-12">
         <ServicesPackages services={deFreelanceServices} />
         <Process steps={deProcess} />
         <PricingSignals items={dePricingSignals} />
@@ -26,8 +27,8 @@ export default function Freiberuflich() {
         <Testimonials items={deTestimonials} />
         <FAQs items={deFaqs} />
         <CTABar items={[
-          { label: 'Projekt anfragen', href: '/de/kontakt?typ=projekt', beam: true },
-          { label: 'Kennenlern-Call', href: '/de/kontakt?typ=call' },
+          { label: 'Projekt anfragen', href: '#contact', beam: true },
+          { label: 'Kennenlern-Call', href: '#contact' },
           { label: 'Briefing-Vorlage laden', href: '/briefing.pdf' },
         ]} />
         <Skills />

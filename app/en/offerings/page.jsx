@@ -5,11 +5,12 @@ export default function Offerings() {
   return (
     <>
       <PageIntro
+        kicker="Offerings"
         title={(<><span>My </span><span className="accent-text">Offerings</span><span> — tailored for creators & businesses</span></>)}
         subtitle="Pick the areas that fit your needs. Clear process, on‑time delivery."
       />
-      <main className="max-w-7xl mx-auto c-space py-16">
-        <div className="grid md:grid-cols-2 gap-6">
+      <main className="max-w-7xl mx-auto c-space py-16 space-y-12">
+        <div className="offer-grid">
           <details className="grid-container">
             <summary className="text-white font-semibold cursor-pointer">For YouTubers & Creators</summary>
             <ul className="grid-subtext list-disc ml-5 mt-3">
@@ -48,4 +49,3 @@ export default function Offerings() {
     </>
   );
 }
-

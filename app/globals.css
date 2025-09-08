@@ -10,6 +10,12 @@ html { scroll-behavior: smooth; }
   --accent-rgb: 249 115 22;
   --purple-1: #6b21a8; /* deep purple */
   --purple-2: #581c87; /* darker purple */
+
+  /* Ladybird-like glow palette (RGB triplets for rgba()/alpha control) */
+  --lb-indigo-rgb: 99 102 241;   /* indigo-500 */
+  --lb-violet-rgb: 139 92 246;   /* violet-500 */
+  --lb-cyan-rgb:   56 189 248;   /* sky-400 */
+  --lb-alpha: 0.18;
 }
 
 body {
@@ -18,9 +24,23 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: var(--neutral-content);
   background-color: #000;
-  background-image: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
+
+  /* Global Ladybird-like glows + your base vertical gradient at the bottom */
+  background-image:
+    radial-gradient(800px 500px at 15% 10%,
+      rgba(var(--lb-indigo-rgb) / var(--lb-alpha)), transparent 60%),
+    radial-gradient(600px 400px at 80% -5%,
+      rgba(var(--lb-violet-rgb) / calc(var(--lb-alpha) - 0.02)), transparent 60%),
+    radial-gradient(700px 450px at 110% 30%,
+      rgba(var(--lb-cyan-rgb) / calc(var(--lb-alpha) - 0.04)), transparent 60%),
+    radial-gradient(700px 500px at -10% 90%,
+      rgba(var(--lb-violet-rgb) / 0.08), transparent 60%),
+    radial-gradient(700px 500px at 120% 110%,
+      rgba(var(--lb-indigo-rgb) / 0.07), transparent 60%),
+    linear-gradient(180deg, #0a0a0a 0%, #000 100%);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-attachment: fixed; /* keeps glows anchored to the viewport */
+  background-size: auto;
   min-height: 100vh;
   margin: 0;
 }
@@ -67,16 +87,17 @@ h2 { @apply md:text-7xl text-6xl text-white font-bold; }
   .nav-ul { @apply list-none p-0 m-0 flex gap-6 text-white; }
   .nav-li { @apply inline-flex; }
   .nav-li_a { @apply py-2 px-3 hover:opacity-80 transition; }
+  .nav-link { border-bottom: 2px solid transparent; padding-bottom: 2px; }
+  .nav-link.is-active { border-bottom-color: var(--accent, #f97316); }
   .nav-sidebar { @apply absolute left-0 right-0 bg-black/10 backdrop-blur-sm transition-all duration-300 ease-in-out overflow-hidden z-20 mx-auto sm:hidden block; }
 
   /* Hero */
   .hero-section {
     position: relative;
     overflow: hidden;
-    background: transparent; /* use global body background for continuity */
+    background: transparent;
   }
 
-  /* Remove hero-only overlays to match page background */
   .hero-section::before,
   .hero-section::after { display: none; }
   .hero_tag { @apply text-center xl:text-5xl md:text-4xl sm:text-3xl text-2xl font-generalsans font-black text-white !leading-tight; }
@@ -88,7 +109,7 @@ h2 { @apply md:text-7xl text-6xl text-white font-bold; }
   .btn-lg { @apply px-6 py-3 text-base md:text-lg; }
 
   .btn-primary {
-    background-color: transparent; /* outline only */
+    background-color: transparent;
     color: #ffffff;
     border-color: var(--accent, #f97316);
     box-shadow: 0 0 0 0 rgb(var(--accent-rgb, 249 115 22) / 0);
@@ -117,11 +138,33 @@ h2 { @apply md:text-7xl text-6xl text-white font-bold; }
   @keyframes wave { 0%{ transform: rotate(0deg);} 15%{ transform: rotate(14deg);} 30%{ transform: rotate(-8deg);} 40%{ transform: rotate(14deg);} 50%{ transform: rotate(-4deg);} 60%{ transform: rotate(10deg);} 70%{ transform: rotate(0deg);} 100%{ transform: rotate(0deg);} }
 
   /* Offering cards */
-  .offer-grid { @apply grid grid-cols-1 md:grid-cols-2 gap-6; }
-  .offer-card { @apply rounded-xl p-6 border bg-white/5 backdrop-blur-md text-left; border-color: rgb(var(--accent-rgb, 249 115 22) / 0.25); }
+  .offer-grid { @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6; }
+  .offer-card { @apply rounded-xl p-5 border bg-white/5 backdrop-blur-md text-left; border-color: rgb(var(--accent-rgb, 249 115 22) / 0.25); }
   .offer-card h3 { @apply text-white font-semibold text-lg mb-3; }
   .chip { @apply inline-flex items-center gap-2 text-sm px-3 py-1 rounded-full border border-white/15 text-white/90 mr-2 mb-2; }
   .chip img { @apply w-4 h-4; }
+  .offer-meta { @apply text-white/60 text-sm mb-3; }
+  .offer-bullets { @apply list-disc ml-4 space-y-2 leading-relaxed text-white/80; }
+  .offer-cta { @apply mt-4; }
+  .price { @apply text-white/70 text-sm; }
+
+  /* Category pills */
+  .pill { @apply inline-flex items-center gap-2 text-xs px-2.5 py-1 rounded-full mb-3; border: 1px solid currentColor; }
+  .pill--purple { color: #a78bfa; }
+  .pill--blue { color: #60a5fa; }
+  .pill--teal { color: #5eead4; }
+  .pill--orange { color: #fb923c; }
+
+  /* Hover/focus motion */
+  .card-animated { transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
+  .card-animated:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.2); }
+  .card-animated:focus-within { outline: 2px solid rgba(249,115,22,0.5); outline-offset: 4px; }
+  @media (prefers-reduced-motion: reduce) {
+    .card-animated, .card-animated:hover { transition: none; transform: none; }
+  }
+
+  /* Intro kicker */
+  .page-intro_kicker { @apply text-xs tracking-widest uppercase text-white/60 mb-2; }
   .trust-strip { @apply flex flex-wrap items-center justify-center gap-6 opacity-80; }
   .trust-strip img { @apply h-6 md:h-7 object-contain saturate-0 contrast-125; opacity: 0.8; }
   .badge { @apply inline-flex items-center gap-2 px-3 py-1 rounded-full border text-white/80 text-sm; border-color: rgba(255,255,255,0.15); }
@@ -207,5 +250,49 @@ h2 { @apply md:text-7xl text-6xl text-white font-bold; }
     60% { transform: rotate(10deg); }
     70% { transform: rotate(0deg); }
     100% { transform: rotate(0deg); }
+  }
+
+  /* Reusable section-level Ladybird-like glow (optional) */
+  .bg-spotlight {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image:
+      radial-gradient(650px 350px at 20% 10%, rgba(var(--lb-indigo-rgb) / 0.18), transparent 60%),
+      radial-gradient(520px 320px at 80% -5%, rgba(var(--lb-violet-rgb) / 0.16), transparent 60%),
+      radial-gradient(680px 420px at 110% 30%, rgba(var(--lb-cyan-rgb) / 0.12), transparent 60%);
+  }
+
+  /* ---------- NEW: optional fixed side lights (left/right) ---------- */
+  .bg-side-light-left,
+  .bg-side-light-right {
+    position: relative;
+    isolation: isolate; /* keep the glow behind children */
+  }
+  .bg-side-light-left::before,
+  .bg-side-light-right::before {
+    content: "";
+    position: fixed;        /* pinned to viewport, does not scroll */
+    top: 0;
+    bottom: 0;
+    width: 48vw;            /* wide, soft wash from the side */
+    pointer-events: none;
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-image:
+      radial-gradient(800px 500px at var(--sl-x) 20%, rgb(var(--lb-indigo-rgb) / 0.18), transparent 60%),
+      radial-gradient(620px 420px at calc(var(--sl-x) + var(--sl-dx)) 50%, rgb(var(--lb-violet-rgb) / 0.14), transparent 60%),
+      radial-gradient(700px 450px at calc(var(--sl-x) + var(--sl-dx)) 80%, rgb(var(--lb-cyan-rgb) / 0.10), transparent 60%);
+    filter: blur(8px);
+  }
+  .bg-side-light-left::before  { left: 0;  right: auto; --sl-x: 0%;   --sl-dx: 10%; }
+  .bg-side-light-right::before { right: 0; left: auto;  --sl-x: 100%; --sl-dx: -10%; }
+
+  @media (max-width: 768px) {
+    .bg-side-light-left::before,
+    .bg-side-light-right::before {
+      width: 60vw;
+      filter: blur(10px);
+      opacity: 0.85;
+    }
   }
 }

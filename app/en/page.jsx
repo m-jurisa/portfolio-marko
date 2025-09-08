@@ -22,11 +22,11 @@ export default function EnHome() {
         <PricingSignals items={dePricingSignals} />
         <ShowreelGallery videoSrc={'/textures/project/project1.mp4'} projects={myProjects} />
         <Testimonials items={enTestimonials} title="Testimonials" />
-        <CTABar items={[
-          { label: enCTAs[0], href: '/en/contact?type=proposal', beam: true },
-          { label: enCTAs[1], href: '/en/contact?type=call' },
-          { label: enCTAs[2], href: 'mailto:marko.jurisa@proton.me' },
-        ]} />
+      <CTABar items={[
+        { label: enCTAs[0], href: '#contact', beam: true },
+        { label: enCTAs[1], href: '#contact' },
+        { label: enCTAs[2], href: 'mailto:marko.jurisa@proton.me' },
+      ]} />
         <Skills />
         <Contact />
       </main>

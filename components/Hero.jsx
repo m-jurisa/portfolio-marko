@@ -1,60 +1,122 @@
 "use client";
-import Button from './Button';
 
-const Hero = ({ locale, initialMode = 'vollzeit' }) => {
-  const isDE = locale === 'de';
-  const titleMain = isDE ? 'Ich bin verfügbar für' : 'Available for';
+import { useEffect, useState } from "react";
+import Button from "./Button";
+
+/* --- Helpers ----------------------------------------------------------- */
+function setQueryParam(key, value) {
+  if (typeof window === "undefined") return;
+  const url = new URL(window.location.href);
+  if (value) url.searchParams.set(key, value);
+  else url.searchParams.delete(key);
+  window.history.replaceState({}, "", url.toString());
+}
+
+const ACCENTS = {
+  vollzeit:       { hex: "#f59e0b", rgb: "245 158 11" }, // amber
+  freiberuflich:  { hex: "#f97316", rgb: "249 115 22" }, // orange
+};
+
+const VALID_MODES = ["vollzeit", "freiberuflich"];
+
+/* --- Component --------------------------------------------------------- */
+export default function Hero({ locale = "de", initialMode = "vollzeit" }) {
+  const isDE = locale === "de";
+
+  // State: sync with URL (?modus=) and localStorage (per-locale key)
+  const storageKey = isDE ? "modus-de" : "modus-en";
+  const [mode, setMode] = useState(
+    VALID_MODES.includes(initialMode) ? initialMode : "vollzeit"
+  );
+
+  // Initialize from URL or localStorage (only on client)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const url = new URL(window.location.href);
+    const qp = url.searchParams.get("modus");
+    if (VALID_MODES.includes(qp)) {
+      setMode(qp);
+      return;
+    }
+    const stored = localStorage.getItem(storageKey);
+    if (VALID_MODES.includes(stored)) setMode(stored);
+  }, [storageKey]);
+
+  // Persist to URL + localStorage on change
+  useEffect(() => {
+    setQueryParam("modus", mode);
+    if (typeof window !== "undefined") localStorage.setItem(storageKey, mode);
+  }, [mode, storageKey]);
+
+  // Derived flags + accent (section-level)
+  const isVollzeit = mode === "vollzeit";
+  const isFreelance = mode === "freiberuflich";
+  const sectionAccent = isVollzeit ? ACCENTS.vollzeit : ACCENTS.freiberuflich;
+
+  // Copy
+  const titleMain = isDE ? "Ich bin verfügbar für" : "Available for";
   const titleAccent = isDE
-    ? (initialMode === 'vollzeit' ? 'eine Vollzeitstelle' : 'freiberufliche Projekte')
-    : 'freelance projects';
+    ? (isVollzeit ? "eine Vollzeitstelle" : "freiberufliche Projekte")
+    : "freelance projects";
 
-  const sublineDE = initialMode === 'freiberuflich'
-    ? 'Kurzfristige Projekt-Sprints, Showreels, Social-Assets, 3D-Produkt-Mockups und visuelle Kampagnen, die Markenauftritte stärken und Projekte in Szene setzen.'
-    : 'IT-Design, Video-Postproduktion und einfache 3D-Modelle – für Teams, die Tempo und Qualität verbinden.';
-  const sublineEN = 'Design, video editing, and simple 3D—fast turnarounds, clear communication.';
+  const sublineDE = isFreelance
+    ? "Kurzfristige Projekt-Sprints, Showreels, Social-Assets, 3D-Produkt-Mockups und visuelle Kampagnen, die Markenauftritte stärken und Projekte in Szene setzen."
+    : "IT-Design, Video-Postproduktion und einfache 3D-Modelle – für Teams, die Tempo und Qualität verbinden.";
 
-  // Use warm accents to match the hero gradient (no green)
-  const accentHex = isDE ? (initialMode === 'vollzeit' ? '#f59e0b' : '#f97316') : '#f97316';
-  const accentRgb = isDE ? (initialMode === 'vollzeit' ? '245 158 11' : '249 115 22') : '249 115 22';
+  const sublineEN =
+    "Design, video editing, and simple 3D—fast turnarounds, clear communication.";
 
   return (
-    <section className="hero-section min-h-screen h-full flex flex-col-reverse sm:flex-col relative" style={{ ['--accent']: accentHex, ['--accent-rgb']: accentRgb }}>
+    <section
+      className="hero-section min-h-screen h-full flex flex-col-reverse sm:flex-col relative"
+      style={{ ["--accent"]: sectionAccent.hex, ["--accent-rgb"]: sectionAccent.rgb }}
+    >
       <div className="hero-inner flex flex-col gap-6">
         <p className="hero-micro">
-          {isDE ? 'Hi, ich bin Marko' : "Hi, I'm Marko"} <span className="waving">👋</span> ✨
+          {isDE ? "Hi, ich bin Marko" : "Hi, I'm Marko"}{" "}
+          <span className="waving">👋</span> ✨
         </p>
         <p className="muted-text text-base sm:text-lg">
           {isDE
-            ? 'Softwareentwicklung, Design, Videoproduktion & 3D Mockups'
-            : 'Software engineering, design, video production & 3D mockups'}
+            ? "Softwareentwicklung, Design, Videoproduktion & 3D"
+            : "Software engineering, design, video production & 3D"}
         </p>
+
         {isDE ? (
           <>
+            {/* Mode switch: EXACT behavior like ModeSections (buttons + state) */}
             <div className="flex justify-center">
               <div className="segmented" role="tablist" aria-label="Modus wählen">
-                <a
-                  className={`segment ${initialMode === 'vollzeit' ? 'is-active' : ''}`}
-                  href="/de/vollzeit"
+                <button
+                  type="button"
+                  className={`segment ${isVollzeit ? "is-active" : ""}`}
+                  onClick={() => setMode("vollzeit")}
                   role="tab"
-                  aria-selected={initialMode === 'vollzeit'}
+                  aria-selected={isVollzeit}
+                  aria-controls="panel-vollzeit"
                 >
-                  Vollzeit
-                </a>
-                <a
-                  className={`segment ${initialMode === 'freiberuflich' ? 'is-active' : ''}`}
-                  href="/de/freiberuflich"
+                  Vollzeitstelle
+                </button>
+                <button
+                  type="button"
+                  className={`segment ${isFreelance ? "is-active" : ""}`}
+                  onClick={() => setMode("freiberuflich")}
                   role="tab"
-                  aria-selected={initialMode === 'freiberuflich'}
+                  aria-selected={isFreelance}
+                  aria-controls="panel-freiberuflich"
                 >
                   Freiberuflich
-                </a>
+                </button>
               </div>
             </div>
+
             <h1 className="hero-title">
               <span className="block">{titleMain}</span>
               <span className="block accent-text">{titleAccent}.</span>
             </h1>
             <p className="muted-text subline">{sublineDE}</p>
+
+            {/* Logos */}
             <div className="mt-2 overflow-hidden">
               <div className="trust-strip marquee">
                 <div className="marquee__inner">
@@ -77,50 +139,91 @@ const Hero = ({ locale, initialMode = 'vollzeit' }) => {
                 </div>
               </div>
             </div>
+
+            {/* Primary CTAs: highlight active; keep both visible */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href={`/de?modus=vollzeit`} className="w-fit">
-                <Button name="Vollzeitstelle (Bewerbung)" variant={initialMode === 'vollzeit' ? 'primary' : 'secondary'} containerClass="btn-lg sm:w-fit w-full sm:min-w-72" />
+              <a
+                href={`/de?modus=vollzeit`}
+                className="w-fit"
+                aria-current={isVollzeit ? "page" : undefined}
+                style={{
+                  ["--accent"]: ACCENTS.vollzeit.hex,
+                  ["--accent-rgb"]: ACCENTS.vollzeit.rgb,
+                }}
+                id="panel-vollzeit"
+                role="tabpanel"
+                aria-labelledby="Vollzeitstelle"
+              >
+                <Button
+                  name="Vollzeitstelle (Festanstellung)"
+                  variant={isVollzeit ? "primary" : "secondary"}
+                  containerClass="btn-lg sm:w-fit w-full sm:min-w-72"
+                />
               </a>
-              <a href={`/de?modus=freiberuflich`} className="w-fit">
-                <Button name="Freiberuflich auf Projektbasis" variant={initialMode === 'freiberuflich' ? 'primary' : 'secondary'} containerClass="btn-lg sm:w-fit w-full sm:min-w-72" />
+
+              <a
+                href={`/de?modus=freiberuflich`}
+                className="w-fit"
+                aria-current={isFreelance ? "page" : undefined}
+                style={{
+                  ["--accent"]: ACCENTS.freiberuflich.hex,
+                  ["--accent-rgb"]: ACCENTS.freiberuflich.rgb,
+                }}
+                id="panel-freiberuflich"
+                role="tabpanel"
+                aria-labelledby="Freiberuflich"
+              >
+                <Button
+                  name="Freiberuflich auf Projektbasis"
+                  variant={isFreelance ? "primary" : "secondary"}
+                  containerClass="btn-lg sm:w-fit w-full sm:min-w-72"
+                />
               </a>
             </div>
 
-            {initialMode === 'vollzeit' && (
+            {/* Secondary rows (conditional, like your original) */}
+            {isVollzeit && (
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
                 <a href="#bewerbungsunterlagen" className="w-fit">
-                  <Button name="Bewerbungsunterlagen ansehen" variant="primary" containerClass="btn-lg" />
+                  <Button name="Bewerbungsunterlagen anfragen" variant="primary" containerClass="btn-lg" />
                 </a>
                 <a href="/resume.pdf" download className="w-fit">
                   <Button name="Lebenslauf herunterladen" variant="secondary" />
                 </a>
-                <a href="/de/kontakt" className="w-fit">
+                <a href="#contact" className="w-fit">
                   <Button name="Kontakt für Bewerbung" variant="secondary" />
                 </a>
               </div>
             )}
-            {initialMode === 'freiberuflich' && (
+
+            {isFreelance && (
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
-                <a href="/de/kontakt?typ=projekt" className="w-fit">
+                <a href="#contact" className="w-fit">
                   <Button name="Projekt anfragen" variant="primary" containerClass="btn-lg" />
                 </a>
                 <a href="/de?modus=freiberuflich#leistungen" className="w-fit">
                   <Button name="Leistungen & Pakete" variant="secondary" />
                 </a>
-                <a href="/de/kontakt?typ=erstgespraech" className="w-fit">
+                <a href="#contact" className="w-fit">
                   <Button name="Erstgespräch buchen" variant="secondary" />
                 </a>
               </div>
             )}
+
             <div className="mt-6 flex flex-col items-center gap-3">
               <div className="badge">
                 <span className="relative inline-flex h-3 w-3">
                   <span className="btn-ping"></span>
                   <span className="btn-ping_dot"></span>
                 </span>
-                🟢 Verfügbar: DE vor Ort · Hybrid/Remote weltweit
+                Verfügbar: DE vor Ort und Hybrid / weltweit Remote
               </div>
-              <a href="#skills" className="text-white/70 hover:text-white/90 text-sm">Mehr erfahren ↓</a>
+              <a
+                href="#offer-grid"
+                className="text-white/70 btn-lg border border-purple-950 mt-8 text-purple-800 rounded-full hover:text-white/90 text-sm"
+              >
+                Mehr erfahren ↓
+              </a>
             </div>
           </>
         ) : (
@@ -130,6 +233,7 @@ const Hero = ({ locale, initialMode = 'vollzeit' }) => {
               <span className="block accent-text">freelance projects.</span>
             </h1>
             <p className="muted-text subline">{sublineEN}</p>
+
             <div className="mt-2 overflow-hidden">
               <div className="trust-strip marquee">
                 <div className="marquee__inner">
@@ -152,22 +256,22 @@ const Hero = ({ locale, initialMode = 'vollzeit' }) => {
                 </div>
               </div>
             </div>
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href="/en/projects" className="w-fit">
                 <Button name="View Projects" variant="primary" containerClass="btn-lg sm:w-fit w-full sm:min-w-48" />
               </a>
-              <a href="/en/contact" className="w-fit">
+              <a href="#contact" className="w-fit">
                 <Button name="Contact Me" variant="secondary" containerClass="sm:w-fit w-full sm:min-w-48" />
               </a>
             </div>
+
             <div className="mt-6 flex flex-col items-center gap-3">
-              <a href="#skills" className="text-white/70 hover:text-white/90 text-sm">See more ↓</a>
+              <a href="#offer-grid" className="text-white/70 btn-lg hover:text-white/90 text-sm">See more ↓</a>
             </div>
           </>
         )}
       </div>
     </section>
   );
-};
-
-export default Hero;
+}

@@ -36,7 +36,7 @@ const FullTimeSection = () => (
       </div>
     </div>
     <div className="flex flex-col sm:flex-row gap-4 mt-8">
-      <a href="#bewerbungsunterlagen" className="w-fit"><Button name="Bewerbungsunterlagen ansehen" isBeam /></a>
+      <a href="#bewerbungsunterlagen" className="w-fit"><Button name="Bewerbungsunterlagen anfragen" isBeam /></a>
       <a href="/resume.pdf" download className="w-fit"><Button name="Lebenslauf herunterladen" /></a>
       <a href="/de/kontakt" className="w-fit"><Button name="Kontakt für Bewerbung" /></a>
     </div>

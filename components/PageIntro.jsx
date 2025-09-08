@@ -1,7 +1,8 @@
-export default function PageIntro({ title, subtitle, showMeta = true, email = 'marko.jurisa@proton.me' }) {
+export default function PageIntro({ kicker, title, subtitle, showMeta = true, email = 'marko.jurisa@proton.me' }) {
   return (
     <section className="page-intro">
       <div className="page-intro_inner">
+        {kicker ? <div className="page-intro_kicker">{kicker}</div> : null}
         <h1 className="page-intro_title">{title}</h1>
         {subtitle ? <p className="muted-text subline mt-3">{subtitle}</p> : null}
 
@@ -33,7 +34,7 @@ export default function PageIntro({ title, subtitle, showMeta = true, email = 'm
                 <span className="btn-ping"></span>
                 <span className="btn-ping_dot"></span>
               </span>
-              🟢 Verfügbar: DE vor Ort · Hybrid/Remote weltweit
+              Verfügbar: DE vor Ort und Hybrid / weltweit Remote 
             </div>
 
             <a href={`mailto:${email}`} className="text-white/80 hover:text-white">{email}</a>
