@@ -143,7 +143,7 @@ export default function Hero({ locale = "de", initialMode = "vollzeit" }) {
             {/* Primary CTAs: highlight active; keep both visible */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href={`/de?modus=vollzeit`}
+                href={`/de/vollzeit`}
                 className="w-fit"
                 aria-current={isVollzeit ? "page" : undefined}
                 style={{
@@ -162,7 +162,7 @@ export default function Hero({ locale = "de", initialMode = "vollzeit" }) {
               </a>
 
               <a
-                href={`/de?modus=freiberuflich`}
+                href={`/de/freiberuflich`}
                 className="w-fit"
                 aria-current={isFreelance ? "page" : undefined}
                 style={{
@@ -267,7 +267,9 @@ export default function Hero({ locale = "de", initialMode = "vollzeit" }) {
             </div>
 
             <div className="mt-6 flex flex-col items-center gap-3">
-              <a href="#offer-grid" className="text-white/70 btn-lg hover:text-white/90 text-sm">See more ↓</a>
+              <a href="#offer-grid" 
+                className="text-white/70 btn-lg border border-purple-950 mt-4 text-purple-800 rounded-full hover:text-white/90 text-sm"
+              >See more ↓</a>
             </div>
           </>
         )}
