@@ -11,7 +11,7 @@ export default function ProjectsPage() {
         subtitle="If interested, I can provide a deeper portfolio and GitHub access."
       />
       <main className="max-w-7xl mx-auto c-space py-16 space-y-12">
-        <Projects />
+        <Projects locale="en" />
         <Contact />
       </main>
     </>

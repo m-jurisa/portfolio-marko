@@ -3,7 +3,6 @@ import Offerings from '../../components/Offerings';
 import ServicesPackages from '../../components/ServicesPackages';
 import Process from '../../components/Process';
 import PricingSignals from '../../components/PricingSignals';
-import ShowreelGallery from '../../components/ShowreelGallery';
 import Testimonials from '../../components/Testimonials';
 import CTABar from '../../components/CTABar';
 import Skills from '../../components/Skills';
@@ -20,7 +19,6 @@ export default function EnHome() {
         <ServicesPackages services={deFreelanceServices} />
         <Process steps={deProcess} />
         <PricingSignals items={dePricingSignals} />
-        <ShowreelGallery videoSrc={'/textures/project/project1.mp4'} projects={myProjects} />
         <Testimonials items={enTestimonials} title="Testimonials" />
       <CTABar items={[
         { label: enCTAs[0], href: '#contact', beam: true },

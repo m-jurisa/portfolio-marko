@@ -202,7 +202,7 @@ const sublineDE = isFreelance
                 <a href="#contact" className="w-fit">
                   <Button name="Projekt anfragen" variant="primary" containerClass="btn-lg" />
                 </a>
-                <a href="/de?modus=freiberuflich#leistungen" className="w-fit">
+                <a href="/de/angebot" className="w-fit">
                   <Button name="Leistungen & Pakete" variant="secondary" />
                 </a>
                 <a href="#contact" className="w-fit">
