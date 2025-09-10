@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Button from "./Button";
 
@@ -26,18 +26,20 @@ function urlHasExplicitMode(pathname, searchParams) {
   return VALID.includes(qp);
 }
 
-export default function About({ locale = "de" }) {
+/** Inner component that actually uses the hooks */
+function AboutInner({ locale = "de" }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // IMPORTANT: derive initial from URL only (SSR-safe)
+  // derive initial from URL only
   const [mode, setMode] = useState(() => parseModeFromUrl(pathname, searchParams));
   const [hasCopied, setHasCopied] = useState(false);
 
   // Keep in sync when navigation changes
   useEffect(() => {
     setMode(parseModeFromUrl(pathname, searchParams));
-  }, [pathname, searchParams]);
+    // Using toString() is a safe dep to detect query changes
+  }, [pathname, searchParams?.toString()]);
 
   // If URL doesn't dictate the mode, allow localStorage to influence after mount
   useEffect(() => {
@@ -55,15 +57,17 @@ export default function About({ locale = "de" }) {
     }
     window.addEventListener("storage", onStorage);
     return () => window.removeEventListener("storage", onStorage);
-  }, [pathname, searchParams, locale]);
+  }, [pathname, searchParams?.toString(), locale]);
 
   const isVollzeit = mode === "vollzeit";
   const isFreelance = mode === "freiberuflich";
 
   const handleCopy = () => {
-    navigator.clipboard.writeText("marko.jurisa@proton.me");
-    setHasCopied(true);
-    setTimeout(() => setHasCopied(false), 1600);
+    if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText("marko.jurisa@proton.me");
+      setHasCopied(true);
+      setTimeout(() => setHasCopied(false), 1600);
+    }
   };
 
   return (
@@ -72,18 +76,12 @@ export default function About({ locale = "de" }) {
         {/* Intro / Bio */}
         <div className="col-span-1 xl:row-span-3">
           <div className="grid-container">
-            <img
-              src="/assets/grid1.webp"
-              alt="Profil"
-              className="w-full sm:h-[276px] h-fit object-contain"
-            />
+            <img src="/assets/grid1.webp" alt="Profil" className="w-full sm:h-[276px] h-fit object-contain" />
             <div>
               <p className="grid-headtext">Hallo, ich bin Marko,</p>
               <p className="grid-subtext">
-                kroatischer Staatsbürger, der seit <strong>knapp 9&nbsp;Jahren</strong> in
-                Deutschland lebt. Vom Bauwesen in die IT gewechselt – aus echter
-                Leidenschaft für Technologie. Ich lerne <strong>sehr schnell</strong> und liefere
-                zuverlässig: klare Kommunikation, saubere Umsetzung, messbare Ergebnisse.
+                kroatischer Staatsbürger, der seit <strong>knapp 9&nbsp;Jahren</strong> in Deutschland lebt.
+                Vom Bauwesen in die IT gewechselt – aus echter Leidenschaft für Technologie. Ich lerne <strong>sehr schnell</strong> und liefere zuverlässig: klare Kommunikation, saubere Umsetzung, messbare Ergebnisse.
               </p>
             </div>
           </div>
@@ -92,65 +90,27 @@ export default function About({ locale = "de" }) {
         {/* Tech Stack & Fokus — modusabhängig */}
         <div className="col-span-1 xl:row-span-3">
           <div className="grid-container">
-            <img
-              src="/assets/grid2.webp"
-              alt="Tech Stack"
-              className="w-full sm:h-[276px] h-fit object-contain"
-            />
+            <img src="/assets/grid2.webp" alt="Tech Stack" className="w-full sm:h-[276px] h-fit object-contain" />
             <div>
               <p className="grid-headtext">Tech Stack & Fokus</p>
 
               {isVollzeit ? (
                 <ul className="grid-subtext list-disc ml-5 space-y-1.5">
-                  <li>
-                    <strong>Frontend:</strong> React/Next.js (App Router), SSG/ISR,
-                    Tailwind, Headless UI.
-                  </li>
-                  <li>
-                    <strong>Architektur:</strong> modulare Komponenten, Zustand mit
-                    React Query/Zustand, Trennung UI/Domain.
-                  </li>
-                  <li>
-                    <strong>Qualität:</strong> ESLint/Prettier, vitest/jest nach Bedarf,
-                    CI (GitHub Actions), PR-Reviews.
-                  </li>
-                  <li>
-                    <strong>Performance:</strong> Code-Splitting, Bild-Optimierung,
-                    Web Vitals, Lighthouse-Budgets.
-                  </li>
-                  <li>
-                    <strong>Backend:</strong> Node/Express oder Go; DB: PostgreSQL/MySQL/SQLite.
-                  </li>
-                  <li>
-                    <strong>Security-Basics:</strong> Input-Validierung, sichere Defaults,
-                    Least-Privilege, getrennte Umgebungen.
-                  </li>
+                  <li><strong>Frontend:</strong> React/Next.js (App Router), SSG/ISR, Tailwind, Headless UI.</li>
+                  <li><strong>Architektur:</strong> modulare Komponenten, Zustand mit React Query/Zustand, Trennung UI/Domain.</li>
+                  <li><strong>Qualität:</strong> ESLint/Prettier, vitest/jest nach Bedarf, CI (GitHub Actions), PR-Reviews.</li>
+                  <li><strong>Performance:</strong> Code-Splitting, Bild-Optimierung, Web Vitals, Lighthouse-Budgets.</li>
+                  <li><strong>Backend:</strong> Node/Express oder Go; DB: PostgreSQL/MySQL/SQLite.</li>
+                  <li><strong>Security-Basics:</strong> Input-Validierung, sichere Defaults, Least-Privilege, getrennte Umgebungen.</li>
                 </ul>
               ) : (
                 <ul className="grid-subtext list-disc ml-5 space-y-1.5">
-                  <li>
-                    <strong>Schnell live:</strong> Landingpages, kleine Apps, optionales CMS,
-                    SEO-Meta & OpenGraph.
-                  </li>
-                  <li>
-                    <strong>Stack nach Ziel:</strong> Next.js für SSG/ISR, <strong>Go + htmx</strong> für
-                    schlanke Interfaces, <strong>Python</strong> für LLM/Automation.
-                  </li>
-                  <li>
-                    <strong>Integrationen:</strong> REST/GraphQL, E-Mail/CRM, Analytics, Payment,
-                    einfache 3D/Three.js-Effekte.
-                  </li>
-                  <li>
-                    <strong>Marketing-Impact:</strong> sauberes Design, Micro-Motion, schnelle Ladezeiten,
-                    messbare KPIs.
-                  </li>
-                  <li>
-                    <strong>Automatisierung:</strong> Content-Pipelines, Bild/Video-Batches, Skripte
-                    für wiederkehrende Tasks.
-                  </li>
-                  <li>
-                    <strong>Budget-fokussiert:</strong> klare Angebote, fixe Milestones, pragmatische Umsetzung.
-                  </li>
+                  <li><strong>Schnell live:</strong> Landingpages, kleine Apps, optionales CMS, SEO-Meta & OpenGraph.</li>
+                  <li><strong>Stack nach Ziel:</strong> Next.js für SSG/ISR, <strong>Go + htmx</strong> für schlanke Interfaces, <strong>Python</strong> für LLM/Automation.</li>
+                  <li><strong>Integrationen:</strong> REST/GraphQL, E-Mail/CRM, Analytics, Payment, einfache 3D/Three.js-Effekte.</li>
+                  <li><strong>Marketing-Impact:</strong> sauberes Design, Micro-Motion, schnelle Ladezeiten, messbare KPIs.</li>
+                  <li><strong>Automatisierung:</strong> Content-Pipelines, Bild/Video-Batches, Skripte für wiederkehrende Tasks.</li>
+                  <li><strong>Budget-fokussiert:</strong> klare Angebote, fixe Milestones, pragmatische Umsetzung.</li>
                 </ul>
               )}
             </div>
@@ -160,26 +120,12 @@ export default function About({ locale = "de" }) {
         {/* Kontakt */}
         <div className="xl:col-span-1 xl:row-span-2">
           <div className="grid-container">
-            <img
-              src="/assets/grid4.webp"
-              alt="Kontakt"
-              className="w-full md:h-[126px] sm:h-[276px] h-fit object-cover sm:object-top mt-16"
-            />
+            <img src="/assets/grid4.webp" alt="Kontakt" className="w-full md:h-[126px] sm:h-[276px] h-fit object-cover sm:object-top mt-16" />
             <div className="space-y-2">
               <p className="grid-subtext text-center">Kontakt</p>
-              <button
-                type="button"
-                className="copy-container"
-                onClick={handleCopy}
-                aria-live="polite"
-              >
-                <img
-                  src={hasCopied ? "/assets/tick.svg" : "/assets/copy.svg"}
-                  alt={hasCopied ? "E-Mail kopiert" : "E-Mail kopieren"}
-                />
-                <p className="lg:text-2xl md:text-xl font-medium text-white">
-                  marko.jurisa@proton.me
-                </p>
+              <button type="button" className="copy-container" onClick={handleCopy} aria-live="polite">
+                <img src={hasCopied ? "/assets/tick.svg" : "/assets/copy.svg"} alt={hasCopied ? "E-Mail kopiert" : "E-Mail kopieren"} />
+                <p className="lg:text-2xl md:text-xl font-medium text-white">marko.jurisa@proton.me</p>
               </button>
             </div>
           </div>
@@ -216,11 +162,7 @@ export default function About({ locale = "de" }) {
         {/* Arbeitsweise */}
         <div className="xl:col-span-2 xl:row-span-2">
           <div className="grid-container">
-            <img
-              src="/assets/grid3.webp"
-              alt="Arbeitsweise"
-              className="w-full sm:h-[266px] h-fit object-contain"
-            />
+            <img src="/assets/grid3.webp" alt="Arbeitsweise" className="w-full sm:h-[266px] h-fit object-contain" />
             <div>
               <p className="grid-headtext">Arbeitsweise</p>
               <ul className="grid-subtext list-disc ml-5 space-y-1.5">
@@ -233,5 +175,14 @@ export default function About({ locale = "de" }) {
         </div>
       </div>
     </section>
+  );
+}
+
+/** Outer wrapper that provides the Suspense boundary */
+export default function About({ locale = "de" }) {
+  return (
+    <Suspense fallback={null}>
+      <AboutInner locale={locale} />
+    </Suspense>
   );
 }

@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import useAlert from "../hooks/useAlert";
 import Alert from "./Alert";
 
-/* Valid modes */
 const VALID = ["vollzeit", "freiberuflich"];
 
 /* Parse initial mode from URL only (SSR-safe) */
@@ -28,8 +27,9 @@ function urlHasExplicitMode(pathname, searchParams) {
   return VALID.includes(qp);
 }
 
-const Contact = () => {
-  const formRef = useRef();
+/** Inner: actually uses the Next hooks */
+function ContactInner() {
+  const formRef = useRef(null);
   const { alert, showAlert, hideAlert } = useAlert();
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -37,24 +37,21 @@ const Contact = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  /* IMPORTANT: initial state derived from URL only → no hydration mismatch */
-  const [mode, setMode] = useState(() =>
-    parseModeFromUrl(pathname, searchParams)
-  );
+  // initial state derived from URL only → no hydration mismatch
+  const [mode, setMode] = useState(() => parseModeFromUrl(pathname, searchParams));
 
-  /* Keep mode in sync with navigation changes */
+  // Keep mode in sync with navigation changes
   useEffect(() => {
     setMode(parseModeFromUrl(pathname, searchParams));
-  }, [pathname, searchParams]);
+  }, [pathname, searchParams?.toString()]);
 
-  /* LocalStorage mode handling */
+  // LocalStorage mode handling
   useEffect(() => {
     const explicit = urlHasExplicitMode(pathname, searchParams);
     if (!explicit && typeof window !== "undefined") {
       const stored = localStorage.getItem("modus-de");
       if (VALID.includes(stored)) setMode(stored);
     }
-
     function onStorage(e) {
       if (!explicit && e.key === "modus-de" && VALID.includes(e.newValue)) {
         setMode(e.newValue);
@@ -62,15 +59,14 @@ const Contact = () => {
     }
     window.addEventListener("storage", onStorage);
     return () => window.removeEventListener("storage", onStorage);
-  }, [pathname, searchParams]);
+  }, [pathname, searchParams?.toString()]);
 
   const handleChange = ({ target: { name, value } }) =>
-    setForm({ ...form, [name]: value });
+    setForm((f) => ({ ...f, [name]: value }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       const res = await fetch("https://contact.portfolio-marko.com/contact", {
         method: "POST",
@@ -79,32 +75,21 @@ const Contact = () => {
           name: form.name,
           email: form.email,
           message: form.message,
-          modus: mode, // 
+          modus: mode,
         }),
       });
+      if (!res.ok) throw new Error("Server returned error");
 
-      if (res.ok) {
-        setLoading(false);
-        showAlert({
-          show: true,
-          text: "Danke für deine Nachricht",
-          type: "success",
-        });
-        setTimeout(() => {
-          hideAlert();
-          setForm({ name: "", email: "", message: "" });
-        }, 3000);
-      } else {
-        throw new Error("Server returned error");
-      }
-    } catch (error) {
-      console.error(error);
       setLoading(false);
-      showAlert({
-        show: true,
-        text: "Ich habe deine Nachricht leider nicht erhalten",
-        type: "danger",
-      });
+      showAlert({ show: true, text: "Danke für deine Nachricht", type: "success" });
+      setTimeout(() => {
+        hideAlert();
+        setForm({ name: "", email: "", message: "" });
+      }, 3000);
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      showAlert({ show: true, text: "Ich habe deine Nachricht leider nicht erhalten", type: "danger" });
     }
   };
 
@@ -114,26 +99,15 @@ const Contact = () => {
       : "Projektbasiert: schnelle, kosteneffiziente Web-Lösungen (Next.js, Go+htmx) sowie Video Editing & Motion Graphics. Bitte Ziel, Timing und Scope nennen – ich melde mich zeitnah.";
 
   return (
-<section className="px-2 sm:px-10 my-0 mb-16 sm:my-20" id="contact">
-        {alert.show && <Alert {...alert} />}
+    <section className="px-2 sm:px-10 my-0 mb-16 sm:my-20" id="contact">
+      {alert.show && <Alert {...alert} />}
       <div className="relative min-h-screen flex items-center justify-center flex-col">
-        <img
-          src="/assets/terminal.webp"
-          alt="terminal-bg"
-          className="absolute inset-0 min-h-screen"
-        />
-        <div className="contact-container  text-white-600 ">
-          <h3 className="sm:text-4xl text-3xl font-semibold mt-16 md:mt-0">
-            Lass uns sprechen
-          </h3>
-
+        <img src="/assets/terminal.webp" alt="terminal-bg" className="absolute inset-0 min-h-screen" />
+        <div className="contact-container text-white-600">
+          <h3 className="sm:text-4xl text-3xl font-semibold mt-16 md:mt-0">Lass uns sprechen</h3>
           <p className="text-lg mt-3">{introCopy}</p>
 
-          <form
-            ref={formRef}
-            onSubmit={handleSubmit}
-            className="mt-12 flex flex-col space-y-7"
-          >
+          <form ref={formRef} onSubmit={handleSubmit} className="mt-12 flex flex-col space-y-7">
             <label className="space-y-3">
               <span className="field-label">Vollständiger Name</span>
               <input
@@ -172,17 +146,20 @@ const Contact = () => {
             </label>
             <button className="field-btn" type="submit" disabled={loading}>
               {loading ? "Senden..." : "Nachricht senden"}
-              <img
-                src="/assets/arrow-up.png"
-                alt="arrow-up"
-                className="field-btn_arrow"
-              />
+              <img src="/assets/arrow-up.png" alt="arrow-up" className="field-btn_arrow" />
             </button>
           </form>
         </div>
       </div>
     </section>
   );
-};
+}
 
-export default Contact;
+/** Outer wrapper: provides the Suspense boundary so Next is happy */
+export default function Contact() {
+  return (
+    <Suspense fallback={null}>
+      <ContactInner />
+    </Suspense>
+  );
+}
