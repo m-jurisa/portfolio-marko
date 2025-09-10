@@ -1,6 +1,5 @@
 "use client";
 
-import emailjs from "@emailjs/browser";
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import useAlert from "../hooks/useAlert";
@@ -39,14 +38,16 @@ const Contact = () => {
   const searchParams = useSearchParams();
 
   /* IMPORTANT: initial state derived from URL only → no hydration mismatch */
-  const [mode, setMode] = useState(() => parseModeFromUrl(pathname, searchParams));
+  const [mode, setMode] = useState(() =>
+    parseModeFromUrl(pathname, searchParams)
+  );
 
-  /* Keep mode in sync with navigation changes (Next.js updates these hooks) */
+  /* Keep mode in sync with navigation changes */
   useEffect(() => {
     setMode(parseModeFromUrl(pathname, searchParams));
   }, [pathname, searchParams]);
 
-  /* Only if URL doesn't dictate the mode, allow localStorage to override after mount */
+  /* LocalStorage mode handling */
   useEffect(() => {
     const explicit = urlHasExplicitMode(pathname, searchParams);
     if (!explicit && typeof window !== "undefined") {
@@ -54,7 +55,6 @@ const Contact = () => {
       if (VALID.includes(stored)) setMode(stored);
     }
 
-    /* Listen for cross-tab/local changes only when URL is not explicit */
     function onStorage(e) {
       if (!explicit && e.key === "modus-de" && VALID.includes(e.newValue)) {
         setMode(e.newValue);
@@ -67,39 +67,45 @@ const Contact = () => {
   const handleChange = ({ target: { name, value } }) =>
     setForm({ ...form, [name]: value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    emailjs
-      .send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-        {
-          from_name: form.name,
-          to_name: "Marko",
-          from_email: form.email,
-          to_email: "marko.jurisa@proton.me",
+    try {
+      const res = await fetch("https://contact.portfolio-marko.com/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
           message: form.message,
-          modus: mode, // include resolved mode
-        },
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
-      )
-      .then(
-        () => {
-          setLoading(false);
-          showAlert({ show: true, text: "Danke für deine Nachricht", type: "success" });
-          setTimeout(() => {
-            hideAlert();
-            setForm({ name: "", email: "", message: "" });
-          }, 3000);
-        },
-        (error) => {
-          setLoading(false);
-          console.error(error);
-          showAlert({ show: true, text: "Ich habe deine Nachricht leider nicht erhalten", type: "danger" });
-        }
-      );
+          modus: mode, // 
+        }),
+      });
+
+      if (res.ok) {
+        setLoading(false);
+        showAlert({
+          show: true,
+          text: "Danke für deine Nachricht",
+          type: "success",
+        });
+        setTimeout(() => {
+          hideAlert();
+          setForm({ name: "", email: "", message: "" });
+        }, 3000);
+      } else {
+        throw new Error("Server returned error");
+      }
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+      showAlert({
+        show: true,
+        text: "Ich habe deine Nachricht leider nicht erhalten",
+        type: "danger",
+      });
+    }
   };
 
   const introCopy =
@@ -108,21 +114,26 @@ const Contact = () => {
       : "Projektbasiert: schnelle, kosteneffiziente Web-Lösungen (Next.js, Go+htmx) sowie Video Editing & Motion Graphics. Bitte Ziel, Timing und Scope nennen – ich melde mich zeitnah.";
 
   return (
-    <section className="c-space my-0 mb-20 sm:my-20" id="contact">
-      {alert.show && <Alert {...alert} />}
+<section className="px-2 sm:px-10 my-0 mb-16 sm:my-20" id="contact">
+        {alert.show && <Alert {...alert} />}
       <div className="relative min-h-screen flex items-center justify-center flex-col">
         <img
           src="/assets/terminal.webp"
           alt="terminal-bg"
           className="absolute inset-0 min-h-screen"
         />
-        <div className="contact-container text-white-600 ">
-          <h3 className="sm:text-4xl text-3xl font-semibold mt-16 md:mt-0">Lass uns sprechen</h3>
+        <div className="contact-container  text-white-600 ">
+          <h3 className="sm:text-4xl text-3xl font-semibold mt-16 md:mt-0">
+            Lass uns sprechen
+          </h3>
 
-          {/* Initial render matches SSR; updates on navigation/localStorage */}
           <p className="text-lg mt-3">{introCopy}</p>
 
-          <form ref={formRef} onSubmit={handleSubmit} className="mt-12 flex flex-col space-y-7">
+          <form
+            ref={formRef}
+            onSubmit={handleSubmit}
+            className="mt-12 flex flex-col space-y-7"
+          >
             <label className="space-y-3">
               <span className="field-label">Vollständiger Name</span>
               <input
@@ -161,7 +172,11 @@ const Contact = () => {
             </label>
             <button className="field-btn" type="submit" disabled={loading}>
               {loading ? "Senden..." : "Nachricht senden"}
-              <img src="/assets/arrow-up.png" alt="arrow-up" className="field-btn_arrow" />
+              <img
+                src="/assets/arrow-up.png"
+                alt="arrow-up"
+                className="field-btn_arrow"
+              />
             </button>
           </form>
         </div>

@@ -107,7 +107,8 @@ h2 { @apply md:text-7xl text-6xl text-white font-bold; }
   .btn-ping { @apply animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75; }
   .btn-ping_dot { @apply relative inline-flex rounded-full h-3 w-3 bg-green-500; }
   .btn-lg { @apply px-6 py-3 text-base md:text-lg; }
-
+  .btn-sm { @apply px-4 py-2 text-sm; }
+  .btn-xs { @apply px-3 py-1.5 text-xs; }
   .btn-primary {
     background-color: transparent;
     color: #ffffff;
@@ -165,14 +166,41 @@ h2 { @apply md:text-7xl text-6xl text-white font-bold; }
 
   /* Intro kicker */
   .page-intro_kicker { @apply text-xs tracking-widest uppercase text-white/60 mb-2; }
-  .trust-strip { @apply flex flex-wrap items-center justify-center gap-6 opacity-80; }
+
+  /* Base trust strip style (no wrapping by default) */
+  .trust-strip { @apply flex items-center justify-center gap-6 opacity-80; }
   .trust-strip img { @apply h-6 md:h-7 object-contain saturate-0 contrast-125; opacity: 0.8; }
   .badge { @apply inline-flex items-center gap-2 px-3 py-1 rounded-full border text-white/80 text-sm; border-color: rgba(255,255,255,0.15); }
 
-  /* Marquee animation */
-  .marquee { position: relative; mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent); }
-  .marquee__inner { display: inline-flex; gap: 24px; padding-inline: 12px; animation: marquee 28s linear infinite; }
-  @keyframes marquee { from { transform: translateX(0%);} to { transform: translateX(-50%);} }
+  /* --- Marquee (fixed to avoid double icons on mobile) --- */
+  .trust-strip.marquee {
+    position: relative;
+    overflow: hidden;
+    flex-wrap: nowrap; /* prevent second run dropping to a new line */
+    mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+  }
+
+  .marquee__inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 24px;
+    min-width: 100%;                 /* each run spans full width */
+    padding-inline: 12px;
+    animation: marquee 28s linear infinite;
+    will-change: transform;
+  }
+
+  /* Second run starts off-screen to the right for seamless loop */
+  .marquee__inner[aria-hidden="true"] {
+    position: absolute;
+    top: 0;
+    left: 100%;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-100%); }
+  }
 
   /* Bottom fade to bridge into content */
   .hero-fade { display: none; }
