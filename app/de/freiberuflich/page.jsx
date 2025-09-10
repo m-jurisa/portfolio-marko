@@ -1,15 +1,18 @@
-import ServicesPackages from '../../../components/ServicesPackages';
-import Process from '../../../components/Process';
-import PricingSignals from '../../../components/PricingSignals';
-import FAQs from '../../../components/FAQs';
-import Testimonials from '../../../components/Testimonials';
-import CTABar from '../../../components/CTABar';
-import Projects from '../../../components/Projects';
-import { myProjects } from '../../../lib/constants';
-import { deFreelanceServices, deProcess, dePricingSignals, deFaqs, deTestimonials } from '../../../lib/content';
-import PageIntro from '../../../components/PageIntro';
-import Skills from '../../../components/Skills';
-import Contact from '../../../components/Contact';
+// app/de/freiberuflich/page.jsx
+import ServicesPackages from '../../../components/ServicesPackages'
+import Process from '../../../components/Process'
+import PricingSignals from '../../../components/PricingSignals'
+import FAQs from '../../../components/FAQs'
+import Testimonials from '../../../components/Testimonials'
+import CTABar from '../../../components/CTABar'
+import Projects from '../../../components/Projects'
+import { deFreelanceServices, deProcess, dePricingSignals, deFaqs, deTestimonials } from '../../../lib/content'
+import PageIntro from '../../../components/PageIntro'
+import Skills from '../../../components/Skills'
+import Contact from '../../../components/Contact'
+
+export const dynamic = 'error'
+export const revalidate = false
 
 export default function Freiberuflich() {
   return (
@@ -34,5 +37,5 @@ export default function Freiberuflich() {
         <Contact />
       </main>
     </>
-  );
+  )
 }

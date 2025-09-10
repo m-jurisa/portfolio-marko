@@ -1,5 +1,9 @@
-import PageIntro from "../../../components/PageIntro";
-import Contact from "../../../components/Contact";
+// app/de/angebot/page.jsx
+import PageIntro from "../../../components/PageIntro"
+import Contact from "../../../components/Contact"
+
+export const dynamic = 'error'
+export const revalidate = false
 
 export default function Angebot() {
   const offers = [
@@ -73,7 +77,7 @@ export default function Angebot() {
       duration: "flexibel",
       anchor: "individual"
     }
-  ];
+  ]
 
   return (
     <>
@@ -89,9 +93,7 @@ export default function Angebot() {
         subtitle="Wähle den Bereich, der zu deinem Ziel passt. Transparente Abläufe, messbare Ergebnisse, klare Kommunikation."
       />
 
-      {/* Breite exakt wie vorher */}
       <main className="max-w-7xl mx-auto c-space py-16 space-y-12">
-        {/* Neuer Look: moderne Karten, aber gleiche Gesamtbreite */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {offers.map((offer) => (
             <article
@@ -106,7 +108,6 @@ export default function Angebot() {
                 hover:shadow-[0_18px_50px_rgba(0,0,0,0.55)]
               "
             >
-              {/* Soft spotlight on hover */}
               <div
                 className="
                   pointer-events-none absolute inset-0 rounded-2xl opacity-0
@@ -117,14 +118,12 @@ export default function Angebot() {
               />
 
               <div className="relative z-10 p-8">
-                {/* Category badge */}
                 <div className="mb-4">
                   <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border border-purple-500/30 bg-purple-500/15 text-purple-200">
                     {offer.category}
                   </span>
                 </div>
 
-                {/* Title + subtitle */}
                 <header className="mb-6">
                   <h4
                     id={`${offer.anchor}-title`}
@@ -135,7 +134,6 @@ export default function Angebot() {
                   <p className="text-sm text-white/70 font-medium">{offer.subtitle}</p>
                 </header>
 
-                {/* Services */}
                 <section className="mb-6">
                   <h5 className="text-sm font-semibold text-purple-200 mb-3">Services</h5>
                   <ul className="space-y-2">
@@ -148,7 +146,6 @@ export default function Angebot() {
                   </ul>
                 </section>
 
-                {/* Meta + Tech */}
                 <footer className="pt-4 border-t border-white/10">
                   <div className="flex items-center justify-between mb-3">
                     <div>
@@ -175,7 +172,6 @@ export default function Angebot() {
                     </div>
                   </div>
 
-                  {/* CTA */}
                   <div className="mt-6">
                     <a href="#contact" className="inline-flex">
                       <span
@@ -192,7 +188,6 @@ export default function Angebot() {
                 </footer>
               </div>
 
-              {/* Accent edge light */}
               <div
                 className="
                   pointer-events-none absolute -right-24 top-0 h-full w-48
@@ -204,11 +199,10 @@ export default function Angebot() {
           ))}
         </section>
 
-        {/* Kontakt behält die gleiche Breite durch gemeinsamen Container */}
         <section className="max-w-7xl mx-auto">
           <Contact />
         </section>
       </main>
     </>
-  );
+  )
 }

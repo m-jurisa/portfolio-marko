@@ -1,5 +1,9 @@
-import PageIntro from "../../../components/PageIntro";
-import Contact from "../../../components/Contact";
+// app/en/offerings/page.jsx
+import PageIntro from "../../../components/PageIntro"
+import Contact from "../../../components/Contact"
+
+export const dynamic = 'error'
+export const revalidate = false
 
 export default function Offerings() {
   const offers = [
@@ -73,11 +77,12 @@ export default function Offerings() {
       duration: "flexible",
       anchor: "custom"
     }
-  ];
+  ]
 
   return (
     <>
       <PageIntro
+         locale="en"
         kicker="Offerings"
         title={
           <>
@@ -88,10 +93,7 @@ export default function Offerings() {
         }
         subtitle="Pick the areas that fit your needs. Clear process, measurable outcomes, on-time delivery."
       />
-
-      {/* Keep the exact same width as your previous page */}
       <main className="max-w-7xl mx-auto c-space py-16 space-y-12">
-        {/* New card style, same container width */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {offers.map((offer) => (
             <article
@@ -106,7 +108,6 @@ export default function Offerings() {
                 hover:shadow-[0_18px_50px_rgba(0,0,0,0.55)]
               "
             >
-              {/* Soft spotlight on hover */}
               <div
                 className="
                   pointer-events-none absolute inset-0 rounded-2xl opacity-0
@@ -115,16 +116,12 @@ export default function Offerings() {
                       radial-gradient(900px_350px_at_100%_0%,rgba(56,189,248,0.10),transparent_60%)]
                 "
               />
-
               <div className="relative z-10 p-8">
-                {/* Category badge */}
                 <div className="mb-4">
                   <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border border-purple-500/30 bg-purple-500/15 text-purple-200">
                     {offer.category}
                   </span>
                 </div>
-
-                {/* Title + subtitle */}
                 <header className="mb-6">
                   <h4
                     id={`${offer.anchor}-title`}
@@ -134,8 +131,6 @@ export default function Offerings() {
                   </h4>
                   <p className="text-sm text-white/70 font-medium">{offer.subtitle}</p>
                 </header>
-
-                {/* Services */}
                 <section className="mb-6">
                   <h5 className="text-sm font-semibold text-purple-200 mb-3">Services</h5>
                   <ul className="space-y-2">
@@ -147,8 +142,6 @@ export default function Offerings() {
                     ))}
                   </ul>
                 </section>
-
-                {/* Meta + Tech */}
                 <footer className="pt-4 border-t border-white/10">
                   <div className="flex items-center justify-between mb-3">
                     <div>
@@ -160,7 +153,6 @@ export default function Offerings() {
                       <p className="text-sm text-white font-medium">{offer.duration}</p>
                     </div>
                   </div>
-
                   <div>
                     <h6 className="text-xs font-semibold text-white/60 mb-2">TECH STACK</h6>
                     <div className="flex flex-wrap gap-2">
@@ -174,25 +166,15 @@ export default function Offerings() {
                       ))}
                     </div>
                   </div>
-
-                  {/* CTA */}
                   <div className="mt-6">
                     <a href="#contact" className="inline-flex">
-                      <span
-                        className="
-                          btn btn-primary btn-lg
-                          hover:shadow-[0_18px_50px_rgba(0,0,0,0.55)]
-                          transition-all
-                        "
-                      >
+                      <span className="btn btn-primary btn-lg hover:shadow-[0_18px_50px_rgba(0,0,0,0.55)] transition-all">
                         Request quote
                       </span>
                     </a>
                   </div>
                 </footer>
               </div>
-
-              {/* Accent edge light */}
               <div
                 className="
                   pointer-events-none absolute -right-24 top-0 h-full w-48
@@ -203,12 +185,10 @@ export default function Offerings() {
             </article>
           ))}
         </section>
-
-        {/* Contact shares the same width via the same container */}
         <section className="max-w-7xl mx-auto">
-          <Contact />
+          <Contact locale="en"/>
         </section>
       </main>
     </>
-  );
+  )
 }

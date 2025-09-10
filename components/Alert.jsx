@@ -1,3 +1,5 @@
+'use client'
+
 const Alert = ({ type, text }) => {
   return (
     <div className="fixed bottom-5 right-5 flex justify-center items-center z-50">
@@ -11,8 +13,6 @@ const Alert = ({ type, text }) => {
         <p className="mr-2 text-left">{text}</p>
       </div>
     </div>
-  );
-};
-
-export default Alert;
-
+  )
+}
+export default Alert

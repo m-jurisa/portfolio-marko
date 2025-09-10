@@ -5,8 +5,8 @@ const Footer = () => {
     <footer className="c-space pt-7 pb-3 border-t border-black-300 flex justify-between items-center flex-wrap gap-5">
       <div className="text-white-500 flex gap-2">
         <p>
-          <a href="mailto:marko.jurisa@proton.me" className="hover:underline">
-            marko.jurisa@proton.me
+          <a href="mailto:info@portfolio-marko.com" className="hover:underline">
+            info@portfolio-marko.com
           </a>
         </p>
       </div>

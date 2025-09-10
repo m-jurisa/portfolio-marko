@@ -1,5 +1,8 @@
+// components/Button.jsx
+'use client'
+
 const Button = ({ name, isBeam = false, containerClass = '', variant = 'secondary' }) => {
-  const variantClass = variant === 'primary' ? 'btn-primary' : 'btn-secondary';
+  const variantClass = variant === 'primary' ? 'btn-primary' : 'btn-secondary'
   return (
     <button className={`btn ${variantClass} ${containerClass}`}>
       {isBeam && (
@@ -10,7 +13,6 @@ const Button = ({ name, isBeam = false, containerClass = '', variant = 'secondar
       )}
       {name}
     </button>
-  );
-};
-
-export default Button;
+  )
+}
+export default Button

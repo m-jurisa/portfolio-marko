@@ -64,7 +64,7 @@ function AboutInner({ locale = "de" }) {
 
   const handleCopy = () => {
     if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
-      navigator.clipboard.writeText("marko.jurisa@proton.me");
+      navigator.clipboard.writeText("info@portfolio-marko.com");
       setHasCopied(true);
       setTimeout(() => setHasCopied(false), 1600);
     }
@@ -125,7 +125,7 @@ function AboutInner({ locale = "de" }) {
               <p className="grid-subtext text-center">Kontakt</p>
               <button type="button" className="copy-container" onClick={handleCopy} aria-live="polite">
                 <img src={hasCopied ? "/assets/tick.svg" : "/assets/copy.svg"} alt={hasCopied ? "E-Mail kopiert" : "E-Mail kopieren"} />
-                <p className="lg:text-2xl md:text-xl font-medium text-white">marko.jurisa@proton.me</p>
+                <p className="lg:text-2xl md:text-xl font-medium text-white">info@portfolio-marko.com</p>
               </button>
             </div>
           </div>
